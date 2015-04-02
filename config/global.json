@@ -1,0 +1,14 @@
+{
+  "global": {
+    "parseVersion": "1.4.0"
+  },
+  "applications": {
+    "List of Leaders of League of Legends": {
+      "applicationId": "yYonHE39BiCh5f2f1IvTUITUaYMlGSoGakh1q6dN",
+      "masterKey": "Q9wSRaH620MnJH9wvZMaXO5SlOh1b3LwIe5Hd5x3"
+    },
+    "_default": {
+      "link": "List of Leaders of League of Legends"
+    }
+  }
+}
