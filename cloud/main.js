@@ -17,6 +17,8 @@ Parse.Cloud.job("updateChampions", function(request, status) {
       }
     })
   }).then(function(response){
+    console.log("Found: " + response.data.length + " matches @ " + beginDate);
+
     var matchIds = _.first(response.data, 9); // make sure we don't go over our rate-limit
     var promises = [];
     _.each(matchIds, function(matchId){
