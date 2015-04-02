@@ -1,0 +1,25 @@
+
+doctype 5
+html
+  head
+    title Sample App
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
+  body
+    div(class='container')
+      h1(class='text-center') Summoners for the Ethical Treatment of Minions
+
+      div
+        h3(class='text-center') Million Killers
+        each champ in mostMinionsKilledChamps
+          div(class='col-md-4')
+            img(src='#{champ.mugshot}')
+            blockquote
+              p= champ.quote
+              footer= champ.champName
+
+      div
+        h3(class='text-center') Noble Summoners
+        each champ in leastMinionsKilledChamps
+          div(class='col-md-4')
+            img(src='#{champ.mugshot}')
