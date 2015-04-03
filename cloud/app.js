@@ -8,6 +8,17 @@ app.set('views', 'cloud/views');  // Specify the folder to find templates
 app.set('view engine', 'jade');    // Set the template engine
 app.use(express.bodyParser());    // Middleware for reading request body
 
+
+// TODO: definitely don't do this here like this, this is just for rate limit increase request
+app.get('/riot', function(req, res) {
+  var query = new Parse.Query("Champion");
+  query.limit(1000);
+  query.descending('minionsKilled');
+  query.find().then(function(champions) {
+    res.render('riot', { champions: champions });
+  });
+});
+
 // This is an example of hooking up a request handler with a specific request
 // path and HTTP verb using the Express routing API.
 app.get('/', function(req, res) {

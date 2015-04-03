@@ -1,0 +1,16 @@
+doctype 5
+html
+  head
+    title Riot Rate Limit Request
+  body
+    h1 This is a sample of the data that we are gathering
+    table(border=1)
+      tr
+        th Champion ID
+        th Average CS/min
+        th (Number of Matches)
+      each champion in champions
+        tr
+          td= champion.get("championId")
+          td= champion.get("minionsKilled")
+          td= champion.get("matches")
