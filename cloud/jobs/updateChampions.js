@@ -2,6 +2,7 @@ var _ = require('underscore');
 
 Parse.Cloud.job("updateChampions", function(request, status) {
   var RIOT_API_KEY;
+  Parse.Cloud.useMasterKey();
 
   var Champion = Parse.Object.extend("Champion")
   var champions;
