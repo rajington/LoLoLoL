@@ -39,10 +39,11 @@ Parse.Cloud.job("updateChampions", function(request, status) {
             api_key: RIOT_API_KEY
           }
         }).then(function(response){
+          var matchDuration = response.data.matchDuration/60;
           return _.map(response.data.participants, function(participant){
             return {
               championId: participant.championId,
-              minionsKilled: participant.stats.minionsKilled
+              minionsKilled: participant.stats.minionsKilled/matchDuration
             };
           });
         }));
