@@ -63,7 +63,7 @@ Parse.Cloud.job("updateChampions", function(request, status) {
           //TODO: make this an instance method
           var average = championObject.get("minionsKilled");
           var matches = championObject.get("matches");
-          var next = championStatistic.minionsKilled/;
+          var next = championStatistic.minionsKilled;
           average += (next-average)/(matches+1);
           championObject.set("minionsKilled", average);
           championObject.increment("matches");
