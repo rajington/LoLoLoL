@@ -2,8 +2,6 @@ var _ = require('underscore');
 
 Parse.Cloud.job("updateChampions", function(request, status) {
   var RIOT_API_KEY;
-  var beginDate = Date.now()/1000 - 3600; // 1 hour ago
-  beginDate -= beginDate%300; // floored to 5 minute increment
 
   var Champion = Parse.Object.extend("Champion")
   var champions;
@@ -19,6 +17,8 @@ Parse.Cloud.job("updateChampions", function(request, status) {
     champions = championCollection;
     // console.log("found " + championCollection.models.length);
   }).then(function(){
+    var beginDate = Date.now()/1000 - 3600; // 1 hour ago
+    beginDate -= beginDate%300; // floored to 5 minute increment
     return Parse.Cloud.httpRequest({
       url: 'https://na.api.pvp.net/api/lol/na/v4.1/game/ids',
       params: {
