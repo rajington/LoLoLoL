@@ -57,9 +57,9 @@ Parse.Cloud.job("updateChampions", function(request, status) {
           return champion.get("championId") == championStatistic.championId;
         });
         if(_.isUndefined(championObject)){
-          championStatistic.matches = 1;
           // console.log("Could not find " + championStatistic.championId + " in " + champions.models.length);
-          champions.add(championStatistic);
+          championObject = new Champion(championStatistic);
+          champions.add(championObject);
         } else {
           //TODO: make this an instance method
           var average = championObject.get("minionsKilled");
@@ -67,8 +67,8 @@ Parse.Cloud.job("updateChampions", function(request, status) {
           var next = championStatistic.minionsKilled;
           average += (next-average)/(matches+1);
           championObject.set("minionsKilled", average);
-          championObject.increment("matches");
         }
+        championObject.increment("matches");
       });
     // console.log(_.flatten(arguments).length);
     // console.log(champions.toJSON());
