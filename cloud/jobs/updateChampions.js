@@ -16,7 +16,7 @@ Parse.Cloud.job("updateChampions", function(request, status) {
     return query.collection().fetch();
   }).then(function(championCollection){
     champions = championCollection;
-    // console.log("found " + championCollection.models.length);
+    console.log("found " + championCollection.models.length);
   }).then(function(){
     var beginDate = Date.now()/1000 - 3600; // 1 hour ago
     beginDate -= beginDate%300; // floored to 5 minute increment
