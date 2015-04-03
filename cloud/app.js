@@ -15,27 +15,39 @@ app.get('/', function(req, res) {
     [{
       champName: 'Draven',
       mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Draven_0.jpg',
-      quote: '"Welcome to the League of Slaughtering Minions"'
+      quote: '"Welcome to the League of Slaughtering Minions"',
+      totalMinionKills: 25089,
+      minionKillsPerMin: 17
     },{
       champName: 'Ziggs',
       mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Ziggs_0.jpg',
-      quote: '"Killing minions will be a blast!"'
+      quote: '"Killing minions will be a blast!"',
+      totalMinionKills: 20713,
+      minionKillsPerMin: 15
     },{
       champName: 'Malphite',
       mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Malphite_0.jpg',
-      quote: '"Watching minions die makes me rock solid."'
+      quote: '"Watching minions die makes me rock solid."',
+      totalMinionKills: 17476,
+      minionKillsPerMin: 12
     }];
 
   var leastKills =
     [{
       champName: 'Malzahar',
-      mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Malzahar_0.jpg'
+      mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Malzahar_0.jpg',
+      totalMinionKills: 568,
+      minionKillsPerMin: 1
     },{
       champName: 'Sona',
-      mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Sona_0.jpg'
+      mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Sona_0.jpg',
+      totalMinionKills: 822,
+      minionKillsPerMin: 2
     },{
       champName: 'Twisted Fate',
-      mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/TwistedFate_0.jpg'
+      mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/TwistedFate_0.jpg',
+      totalMinionKills: 1209,
+      minionKillsPerMin: 5
     }];
   res.render('splash', { mostMinionsKilledChamps : mostKills, leastMinionsKilledChamps: leastKills });
 });

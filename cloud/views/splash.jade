@@ -2,9 +2,10 @@
 doctype 5
 html
   head
-    title Sample App
+    title SETM
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/splash.css')
   body
     div(class='container')
       h1(class='text-center') Summoners for the Ethical Treatment of Minions
@@ -12,8 +13,12 @@ html
       div
         h3(class='text-center') Million Killers
         each champ in mostMinionsKilledChamps
-          div(class='col-md-4')
+          div(class='col-md-4', style='position:relative;')
             img(src='#{champ.mugshot}')
+            p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
+            p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
+            p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/s:
+            p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionKillsPerMin
             blockquote
               p= champ.quote
               footer= champ.champName
@@ -23,3 +28,7 @@ html
         each champ in leastMinionsKilledChamps
           div(class='col-md-4')
             img(src='#{champ.mugshot}')
+            p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
+            p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
+            p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/s:
+            p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionKillsPerMin

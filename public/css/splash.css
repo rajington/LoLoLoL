@@ -1,0 +1,21 @@
+.cs-stat-img-text {
+  position:absolute;
+  color:white;
+  z-index:100;
+}
+
+.cs-stat-img-heading {
+  font-size:24px;
+  left:30px;
+}
+
+.cs-stat-img-value {
+  font-size:54px;
+  left:50px;
+}
+
+.total-mins-killed {
+  top:350px;
+  left:30px;
+
+}
