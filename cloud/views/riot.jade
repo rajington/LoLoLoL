@@ -4,6 +4,12 @@ html
     title Riot Rate Limit Request
   body
     h1 This is a sample of the data that we are gathering
+    p SUBMISSION IS INCOMPLETE, SUBMITTING ONLY FOR HIGHER RATE LIMIT KEY. DESCRIPTION IS A WORK IN PROGRESS (WIP).
+    p RATE LIMIT REQUEST:
+    p Please increase our "burst" (every 10 seconds) limit by tenfold. Our app aggregates data for champions and summoners over the course of URF. For the first version we will need to process every URF game returned by the "api-challenge-v4.1" endpoint. Assuming less than 100 matches per call, we would like to increase our "burst" rate to 100 requests every 10 seconds (although we will be under 500 requests every 10 minutes).
+    p Below is a table of the data we have gathered so far, it is simply Champion IDs and their corresponding average CS/min (and how many matches we have information for).
+    h2 This is just a demonstration of our data, obviously it will be presented better
+
     table(border=1)
       tr
         th Champion ID
