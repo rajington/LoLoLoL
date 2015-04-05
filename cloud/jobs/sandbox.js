@@ -1,6 +1,6 @@
 var _ = require('underscore');
 
-Parse.Cloud.job("updateChampions", function(request, status) {
+Parse.Cloud.job("sandbox", function(request, status) {
   Parse.Cloud.useMasterKey();
   var Champion = Parse.Object.extend("Champion");
 
@@ -17,7 +17,6 @@ Parse.Cloud.job("updateChampions", function(request, status) {
     return query.collection().fetch();
   }).then(function(championCollection){
     champions = championCollection;
-    console.log("found " + championCollection.models.length);
   }).then(function(){
     var beginDate = Date.now()/1000 - 3600; // 1 hour ago
     beginDate -= beginDate%300; // floored to 5 minute increment
@@ -30,9 +29,9 @@ Parse.Cloud.job("updateChampions", function(request, status) {
       }
     })
   }).then(function(response){
-    // console.log("Found: " + response.data.length + " samples @ " + beginDate);
+    // console.log("Found: " + response.data.length + " matches @ " + beginDate);
 
-    var matchIds = _.first(response.data, 9); // make sure we don't go over our rate-limit
+    var matchIds = _.first(response.data, 2); // make sure we don't go over our rate-limit
     var promises = [];
     _.each(matchIds, function(matchId){
       promises.push(Parse.Cloud.httpRequest({
@@ -66,12 +65,12 @@ Parse.Cloud.job("updateChampions", function(request, status) {
         } else {
           //TODO: make this an instance method
           var average = championObject.get("minionsKilled");
-          var samples = championObject.get("samples");
+          var matches = championObject.get("matches");
           var next = championStatistic.minionsKilled;
-          average += (next-average)/(samples+1);
+          average += (next-average)/(matches+1);
           championObject.set("minionsKilled", average);
         }
-        championObject.increment("samples");
+        championObject.increment("matches");
       });
     // console.log(_.flatten(arguments).length);
     // console.log(champions.toJSON());

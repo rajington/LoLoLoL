@@ -7,8 +7,12 @@
       "applicationId": "yYonHE39BiCh5f2f1IvTUITUaYMlGSoGakh1q6dN",
       "masterKey": "Q9wSRaH620MnJH9wvZMaXO5SlOh1b3LwIe5Hd5x3"
     },
+    "LoLoLoL-Dev": {
+      "applicationId": "9VzqQpHMWX9u8lECXxi5wt6AGSl3xlAimct0ZtAj",
+      "masterKey": "XAgqxjRNchK6bTHUhAvHXVuj9UUeGbdGKZ5G4tVf"
+    },
     "_default": {
-      "link": "List of Leaders of League of Legends"
+      "link": "LoLoLoL-Dev"
     }
   }
 }
