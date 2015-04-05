@@ -1,3 +1,4 @@
+var _ = require('underscore');
 
 // These two lines are required to initialize Express in Cloud Code.
 express = require('express');
@@ -22,45 +23,103 @@ app.get('/riot', function(req, res) {
 // This is an example of hooking up a request handler with a specific request
 // path and HTTP verb using the Express routing API.
 app.get('/', function(req, res) {
-  var mostKills =
-    [{
-      champName: 'Draven',
-      mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Draven_0.jpg',
-      quote: '"Welcome to the League of Slaughtering Minions"',
-      totalMinionKills: 25089,
-      minionKillsPerMin: 17
-    },{
-      champName: 'Ziggs',
-      mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Ziggs_0.jpg',
-      quote: '"Killing minions will be a blast!"',
-      totalMinionKills: 20713,
-      minionKillsPerMin: 15
-    },{
-      champName: 'Malphite',
-      mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Malphite_0.jpg',
-      quote: '"Watching minions die makes me rock solid."',
-      totalMinionKills: 17476,
-      minionKillsPerMin: 12
-    }];
 
-  var leastKills =
-    [{
-      champName: 'Malzahar',
-      mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Malzahar_0.jpg',
-      totalMinionKills: 568,
-      minionKillsPerMin: 1
-    },{
-      champName: 'Sona',
-      mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Sona_0.jpg',
-      totalMinionKills: 822,
-      minionKillsPerMin: 2
-    },{
-      champName: 'Twisted Fate',
-      mugshot: 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/TwistedFate_0.jpg',
-      totalMinionKills: 1209,
-      minionKillsPerMin: 5
-    }];
-  res.render('splash', { mostMinionsKilledChamps : mostKills, leastMinionsKilledChamps: leastKills });
+  var mostKills = [];
+  var leastKills = [];
+
+  var RIOT_API_KEY;
+
+  Parse.Config.get().then(function(config){
+    RIOT_API_KEY = config.get('RIOT_API_KEY')
+    return RIOT_API_KEY;
+  });
+
+  // TODO: definitely want to refactor these calls out and store some of this data locally
+  // in files if possible (though I'm not sure if that's going to soften the i/o blow)
+  var mostQuery = new Parse.Query("Champion");
+  mostQuery.descending("minionsKilled");
+  mostQuery.limit(3);
+  mostQuery.find().then(function(champions){
+    var promises = [];
+    _.each(champions, function(champ){
+      promises.push(
+
+          Parse.Cloud.httpRequest({
+            url: 'https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion/' + champ.get('championId'),
+            params: {
+              api_key: RIOT_API_KEY
+            },
+            success: function(resp) {
+              console.log('got most killed cs champs succssfully')
+            },
+            error: function(resp) {
+              console.log('did not get most killed cs champs succssfully: ' + resp.status)
+            }
+          }).then(function(response){
+            var responseData = response.data;;
+            var mergedData = _.extend(responseData, champ.attributes);
+            return mostKills.push(mergedData);
+          })
+
+      )
+    });
+    return Parse.Promise.when(promises);
+  });
+
+
+  var leastQuery = new Parse.Query("Champion");
+  leastQuery.ascending("minionsKilled");
+  leastQuery.limit(3);
+  leastQuery.find().then(function(champions){
+    var promises = [];
+    _.each(champions, function(champ){
+      promises.push(
+
+          Parse.Cloud.httpRequest({
+            url: 'https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion/' + champ.get('championId'),
+            params: {
+              api_key: RIOT_API_KEY
+            },
+            success: function(resp) {
+              console.log('got least killed cs champs succssfully')
+            },
+            error: function(resp) {
+              console.log('did not get least killed cs champs succssfully: ' + resp.status)
+            }
+          }).then(function(response){
+            var responseData = response.data;
+            var mergedData = _.extend(responseData, champ.attributes);
+            return leastKills.push(mergedData);
+          })
+
+      )
+    });
+    return Parse.Promise.when(promises);
+  }).then(function(){
+    res.render('splash', { mostMinionsKilledChamps : mostKills, leastMinionsKilledChamps: leastKills });
+  });
+});
+
+app.get('/champion/:id', function(req, res) {
+
+  var RIOT_API_KEY;
+
+  Parse.Config.get().then(function(config){
+    RIOT_API_KEY = config.get('RIOT_API_KEY')
+    return RIOT_API_KEY;
+  }).then(function(){
+    return Parse.Cloud.httpRequest({
+      url: 'https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion/' + req.params.id,
+      params: {
+        api_key: RIOT_API_KEY,
+        champData: 'all'
+      },
+      success: function(response) {
+        res.render('champion', { champData: response.text });
+      }
+    });
+  });
+
 });
 
 // Example reading from the request query string of an HTTP get request.

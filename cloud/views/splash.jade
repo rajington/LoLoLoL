@@ -13,22 +13,27 @@ html
       div
         h3(class='text-center') Million Killers
         each champ in mostMinionsKilledChamps
-          div(class='col-md-4', style='position:relative;')
-            img(src='#{champ.mugshot}')
+          div(class='col-md-4', style='position:relative; cursor:pointer;')
+            a(href='/champion/#{champ.championId}')
+              img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.name}_0.jpg')
             p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
-            p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
-            p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/s:
-            p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionKillsPerMin
+            //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
+            p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/min:
+            p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled.toFixed(3)
             blockquote
               p= champ.quote
               footer= champ.champName
-
+      
       div
-        h3(class='text-center') Noble Summoners
+        h3(class='text-center') Million Killers
         each champ in leastMinionsKilledChamps
-          div(class='col-md-4')
-            img(src='#{champ.mugshot}')
+          div(class='col-md-4', style='position:relative; cursor:pointer;')
+            a(href='/champion/#{champ.championId}')
+              img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.name}_0.jpg')
             p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
-            p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
-            p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/s:
-            p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionKillsPerMin
+            //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
+            p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/min:
+            p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled.toFixed(3)
+            blockquote
+              p= champ.quote
+              footer= champ.champName
