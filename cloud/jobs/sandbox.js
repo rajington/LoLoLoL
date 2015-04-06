@@ -18,7 +18,7 @@ Parse.Cloud.job("sandbox", function(request, status) {
   }).then(function(championCollection){
     champions = championCollection;
   }).then(function(){
-    var beginDate = Date.now()/1000 - 3600; // 1 hour ago
+    var beginDate = Date.now()/1000 - 600; // 10 minutes ago
     beginDate -= beginDate%300; // floored to 5 minute increment
 
     return Parse.Cloud.httpRequest({
