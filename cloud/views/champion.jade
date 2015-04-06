@@ -2,8 +2,47 @@
 doctype 5
 html
   head
-    title SETM
+    title #{champData.name} | SETM
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
   body
-    p= champData
+    div(class='container')
+      div(class='col-md-4')
+        h1= champData.name
+        p(class='text-muted')= champData.title
+        img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champData.name}_0.jpg')
+      div(class='col-md-8 jumbotron', style='margin-top: 20px;')
+        h4 Neutral Friendliness Score:
+        p(style='font-size:88px;') 80
+          span(class='text-success', style='margin-left: 20px; font-size: 32px;') Neutral hug!
+        
+        p Total lane neutrals killed: &nbsp;
+          span 
+            strong 58436
+        
+        p Neutrals killed per minute: &nbsp;
+          span 
+            strong 3
+        
+        p Total camp neutrals killed: &nbsp;
+          span
+            strong 234
+        
+        p Anti-neutral items bought (on average): &nbsp;
+        p(style='margin-left: 40px;') 0.05 x &nbsp;
+          img(src='http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/3512.png')
+        
+        p Anti-neutral spells used (on average): &nbsp;
+        p(style='margin-left: 40px;') 0.10 x &nbsp;
+          img(src='http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/SummonerSmite.png')
+        
+        p Other:
+        p(style='margin-left: 40px;')
+          div(class='row')  
+            div(class='col-md-1', style='width: 40px;')
+            img(class='col-md-2', src='http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/InfernalGuardian.png')
+            span(class='col-md-9', style='font-size: 16px;') 
+              | On the one hand, Annie offers employment for her best friend Tibbers, a large Neutral bear.
+              | On the other hand, Tibbers is often sent to his death, so we'll call this one a wash.
+          
+      p= debug

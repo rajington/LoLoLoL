@@ -115,7 +115,7 @@ app.get('/champion/:id', function(req, res) {
         champData: 'all'
       },
       success: function(response) {
-        res.render('champion', { champData: response.text });
+        res.render('champion', { champData: response.data, debug: response.text });
       }
     });
   });
