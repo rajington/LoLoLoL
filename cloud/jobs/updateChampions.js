@@ -5,11 +5,11 @@ Parse.Cloud.job("updateChampions", function(request, status) {
   var Champion = Parse.Object.extend("Champion");
 
   // variables that persist across promises
-  var RIOT_API_KEY;
-  var champions;
+  var RIOT_API_KEY, REGIONS, champions;
 
   Parse.Config.get().then(function(config){
     RIOT_API_KEY = config.get('RIOT_API_KEY')
+    REGIONS = config.get('REGIONS');
     return RIOT_API_KEY;
   }).then(function(){
     var query = new Parse.Query(Champion);
@@ -17,38 +17,51 @@ Parse.Cloud.job("updateChampions", function(request, status) {
     return query.collection().fetch();
   }).then(function(championCollection){
     champions = championCollection;
-    console.log("found " + championCollection.models.length);
   }).then(function(){
-    var beginDate = Date.now()/1000 - 3600; // 1 hour ago
+    var beginDate = Date.now()/1000 - 600; // 10 minutes ago
     beginDate -= beginDate%300; // floored to 5 minute increment
 
-    return Parse.Cloud.httpRequest({
-      url: 'https://na.api.pvp.net/api/lol/na/v4.1/game/ids',
-      params: {
-        api_key: RIOT_API_KEY,
-        beginDate: beginDate
-      }
-    })
-  }).then(function(response){
-    // console.log("Found: " + response.data.length + " samples @ " + beginDate);
-
-    var matchIds = _.first(response.data, 9); // make sure we don't go over our rate-limit
     var promises = [];
-    _.each(matchIds, function(matchId){
-      promises.push(Parse.Cloud.httpRequest({
-          url: 'https://na.api.pvp.net/api/lol/na/v2.2/match/'+matchId,
+    _.each(REGIONS, function(region){
+      promises.push(
+        Parse.Cloud.httpRequest({
+          url: 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v4.1/game/ids',
           params: {
-            api_key: RIOT_API_KEY
+            api_key: RIOT_API_KEY,
+            beginDate: beginDate
           }
         }).then(function(response){
-          var matchDuration = response.data.matchDuration/60;
-          return _.map(response.data.participants, function(participant){
-            return {
-              championId: participant.championId,
-              minionsKilled: participant.stats.minionsKilled/matchDuration
-            };
-          });
-        }));
+          return response.data;
+        })
+      );
+    });
+    return Parse.Promise.when(promises);
+  }).then(function(){
+    // console.log("Found: " + response.data.length + " samples @ " + beginDate);
+    // var matchIds = _.first(response.data, 9); // make sure we don't go over our rate-limit
+    var promises = [];
+    // console.log(arguments);
+    _.each(arguments, function(matchIds, regionId){
+      var region = REGIONS[regionId];
+      // console.log(REGIONS[regionId] + ": " + matchIds.length);
+      _.each(_.first(matchIds, 2), function(matchId){
+        promises.push(
+          Parse.Cloud.httpRequest({
+            url: 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v2.2/match/'+matchId,
+            params: {
+              api_key: RIOT_API_KEY
+            }
+          }).then(function(response){
+            var matchDuration = response.data.matchDuration/60;
+            return _.map(response.data.participants, function(participant){
+              return {
+                championId: participant.championId,
+                minionsKilled: participant.stats.minionsKilled/matchDuration
+              };
+            });
+          })
+        );
+      });
     });
     return Parse.Promise.when(promises);
   }).then(function(){
