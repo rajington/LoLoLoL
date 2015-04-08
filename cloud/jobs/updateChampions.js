@@ -1,22 +1,21 @@
 var _ = require('underscore');
+var collectionHelper = require('cloud/jobs/collectionHelper');
 
 Parse.Cloud.job("updateChampions", function(request, status) {
   Parse.Cloud.useMasterKey();
-  var Champion = Parse.Object.extend("Champion");
+
+  var champions = collectionHelper.getCollection("Champion");
 
   // variables that persist across promises
-  var RIOT_API_KEY, REGIONS, champions;
+  var RIOT_API_KEY, REGIONS, NUMBER_STATS;
 
   Parse.Config.get().then(function(config){
     RIOT_API_KEY = config.get('RIOT_API_KEY')
     REGIONS = config.get('REGIONS');
+    CHAMPION_PARTICIPANT_STATS = config.get('CHAMPION_PARTICIPANT_STATS');
     return RIOT_API_KEY;
   }).then(function(){
-    var query = new Parse.Query(Champion);
-    query.limit(1000); // set it to get the max number of champs
-    return query.collection().fetch();
-  }).then(function(championCollection){
-    champions = championCollection;
+    return champions.fetch();
   }).then(function(){
     var beginDate = Date.now()/1000 - 600; // 10 minutes ago
     beginDate -= beginDate%300; // floored to 5 minute increment
@@ -43,52 +42,30 @@ Parse.Cloud.job("updateChampions", function(request, status) {
     // console.log(arguments);
     _.each(arguments, function(matchIds, regionId){
       var region = REGIONS[regionId];
-      // console.log(REGIONS[regionId] + ": " + matchIds.length);
-      _.each(_.first(matchIds, 2), function(matchId){
+      console.log(REGIONS[regionId] + ": " + matchIds.length);
+      _.each(_.first(matchIds, 1), function(matchId){
         promises.push(
           Parse.Cloud.httpRequest({
             url: 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v2.2/match/'+matchId,
             params: {
               api_key: RIOT_API_KEY
             }
-          }).then(function(response){
-            var matchDuration = response.data.matchDuration/60;
-            return _.map(response.data.participants, function(participant){
-              return {
-                championId: participant.championId,
-                minionsKilled: participant.stats.minionsKilled/matchDuration
-              };
-            });
           })
         );
       });
     });
     return Parse.Promise.when(promises);
   }).then(function(){
-    _.chain(arguments)
-      .flatten()
-      .each(function(championStatistic){
-        // console.log(championStatistic);
-        var championObject = champions.find(function(champion){
-          return champion.get("championId") == championStatistic.championId;
+    _.each(arguments, function(response){
+      var match = response.data;
+      _.each(match.participants, function(participant){
+        var champion = champions.getOrCreate(participant.championId);
+        _.each(CHAMPION_PARTICIPANT_STATS, function(stat){
+          champion.updateAverage(stat, participant.stats[stat]);
         });
-        if(_.isUndefined(championObject)){
-          // console.log("Could not find " + championStatistic.championId + " in " + champions.models.length);
-          championObject = new Champion(championStatistic);
-          champions.add(championObject);
-        } else {
-          //TODO: make this an instance method
-          var average = championObject.get("minionsKilled");
-          var samples = championObject.get("samples");
-          var next = championStatistic.minionsKilled;
-          average += (next-average)/(samples+1);
-          championObject.set("minionsKilled", average);
-        }
-        championObject.increment("samples");
+        champion.increment('samples');
       });
-    // console.log(_.flatten(arguments).length);
-    // console.log(champions.toJSON());
-    // console.log(champions.models.length);
+    });
     return Parse.Object.saveAll(champions.models);
   }).then(function(){
     status.success('Updated champions');
