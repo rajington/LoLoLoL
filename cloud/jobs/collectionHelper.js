@@ -2,11 +2,14 @@ var _ = require('underscore');
 
 exports.getCollection = function(className){
   var Model = Parse.Object.extend(className, {
-    updateAverage: function(stat, value){
-      var average = this.get(stat) || 0;
-      var samples = this.get("samples") || 0;
-      average += (value-average)/(samples+1);
-      this.set(stat, average);
+    updateAverages: function(stats, values){
+      var model = this;
+      var samples = model.get("samples") || 0;
+      _.each(stats, function(stat){
+        var average = model.get(stat) || 0;
+        average += (values[stat]-average)/(samples+1);
+        model.set(stat, average);
+      });
     }
   });
   var Collection = Parse.Collection.extend({
