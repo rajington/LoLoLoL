@@ -6,34 +6,114 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/splash.css')
+    script(src='https://code.jquery.com/jquery-1.11.1.min.js')
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
   body
-    div(class='container')
-      h1(class='text-center') Summoners for the Ethical Treatment of Minions
-
-      div
-        h3(class='text-center') Neutral Killers
-        each champ in mostMinionsKilledChamps
-          div(class='col-md-4', style='position:relative; cursor:pointer;')
-            a(href='/champion/#{champ.championId}')
-              img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.name}_0.jpg')
-            p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
-            //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
-            p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/min:
-            p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled.toFixed(3)
-            blockquote
-              p= champ.quote
-              footer= champ.champName
+    div(style='height: 720px;', class='container')
+      h1(class='text-center', style='margin-bottom: 30px;') Summoners for the Ethical Treatment of Minions
       
-      div
-        h3(class='text-center') Noble Champions
-        each champ in leastMinionsKilledChamps
-          div(class='col-md-4', style='position:relative; cursor:pointer;')
-            a(href='/champion/#{champ.championId}')
-              img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.name}_0.jpg')
-            p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
-            //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
-            p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/min:
-            p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled.toFixed(3)
-            blockquote
-              p= champ.quote
-              footer= champ.champName
+      div(class='center-block', style='width: 700px;')
+        p(class='text-primary lead text-uppercase', style='font-size: 50px;') "Minions" and "Monsters" are 
+          strong not 
+          | ours
+        p(class='text-muted lead text-uppercase') to kill, command, pillage, or abuse in any other way.
+    div
+      div(class='container-fluid')
+        div(class='row')
+          div(id='main-carousel', class='carousel slide center-block', style='margin-bottom: 60px;')
+            ol(class='carousel-indicators')
+              li(data-target='#main-carousel', data-slide-to='0', class='active')
+              li(data-target="#main-carousel', data-slide-to='1')
+            
+            div(class='carousel-inner', role='listbox')
+              div(class='item active')
+                img(class='img-responsive', src='urf_background.jpg', style='width: 100%;')
+                p(style='position: absolute; top: 80px; left: 120px; color: white; font-size: 70px;')
+                  | It's about
+                p(style='position: absolute; top: 160px; left: 140px; color: white; font-size: 120px;')
+                  | URF'in
+                p(style='position: absolute; top: 300px; left: 180px; color: white; font-size: 70px;')
+                  | time...
+                div(class='carousel-caption') 
+                  | How do URF games help Neutrals? 
+                  a Educate yourself.
+              
+              div(class='item')
+                img(class='img-responsive', src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Alistar_0.jpg', style='width: 100%;')
+                p(style='position: absolute; top: 30px; left: 90px; color: white; font-size: 50px;')
+                  | Fighting
+                p(style='position: absolute; top: 105px; left: 90px; color: white; font-size: 30px;')
+                  | for the
+                p(style='position: absolute; top: 145px; left: 90px; color: white; font-size: 80px;')
+                  | little
+                p(style='position: absolute; top: 210px; left: 90px; color: white; font-size: 80px;')
+                  | guys
+                div(class='carousel-caption') 
+                  | Check out why every Neutral is talking about 
+                  a(href='champion/12') Alistar - the Miniontaur
+            
+            a(class='left carousel-control', href='#main-carousel', role='button', data-slide='prev')
+              span(class='glyphicon glyphicon-chevron-left', aria-hidden='true')
+              span(class='sr-only') Previous
+
+            a(class='right carousel-control', href='#main-carousel', role='button', data-slide='next')
+              span(class='glyphicon glyphicon-chevron-right', aria-hidden='true')
+              span(class='sr-only') Next
+    
+    div(class='container')
+      select(class='form-control', style='width: 100px;')
+        option BR
+        option EUNE
+        option EUW
+        option KR
+        option LAN
+        option LAS
+        option(selected) NA
+        option OCE
+        option RU
+        option TU
+      
+      div(class='row')
+        div(style='margin-top: 30px;')
+          h1(class='top-3-header text-primary') Noble Champions
+          each champ in leastMinionsKilledChamps
+            div(class='col-md-4', style='position:relative;')
+              a(href='/champion/#{champ.championId}')
+                img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.name}_0.jpg', style='cursor:pointer;')
+              p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
+              //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
+              p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/min:
+              p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled.toFixed(3)
+              blockquote
+                p= champ.quote
+                footer= champ.champName
+          div
+            a(href='/champion?sort=asc', class='text-primary', style='font-size: 20px;') View more heroes
+              span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
+      
+      div(class='row')  
+        div(style='margin-top: 30px;')
+          h1(class='top-3-header text-danger') Neutral Killers
+          each champ in mostMinionsKilledChamps
+            div(class='col-md-4', style='position:relative;')
+              a(href='/champion/#{champ.championId}')
+                img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.name}_0.jpg', style='cursor:pointer;')
+              p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
+              //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
+              p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/min:
+              p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled.toFixed(3)
+              blockquote
+                p= champ.quote
+                footer= champ.champName
+          div
+            a(href='/champion?sort=desc', class='text-danger', style='font-size: 20px;') See the other killers on our list
+              span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
+      
+      
+    div(class='container-fluid', style='margin-top: 30px; background-color: #222')
+      p(class='text-center', style='color: white;') © 2015 SETM
+      
+      
+    script(type='text/javascript').
+      $("#main-carousel").carousel();
+            
