@@ -88,7 +88,7 @@ html
                 p= champ.quote
                 footer= champ.champName
           div
-            a(href='', class='text-primary', style='font-size: 20px;') View more heroes
+            a(href='/champion?sort=asc', class='text-primary', style='font-size: 20px;') View more heroes
               span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
       
       div(class='row')  
@@ -106,7 +106,7 @@ html
                 p= champ.quote
                 footer= champ.champName
           div
-            a(href='', class='text-danger', style='font-size: 20px;') See the other killers on our list
+            a(href='/champion?sort=desc', class='text-danger', style='font-size: 20px;') See the other killers on our list
               span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
       
       
