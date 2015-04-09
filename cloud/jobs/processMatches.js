@@ -2,7 +2,7 @@ var _ = require('cloud/vendor/underscore');
 var collectionHelper = require('cloud/jobs/collectionHelper');
 var CONSTANTS = require('cloud/jobs/constants');
 
-Parse.Cloud.job("updateChampions", function(request, status) {
+Parse.Cloud.job("processMatches", function(request, status) {
   Parse.Cloud.useMasterKey();
 
   var output = function(message){

@@ -1,4 +1,4 @@
-var updateChampions = require('cloud/jobs/updateChampions');
+var processMatches = require('cloud/jobs/processMatches');
 var persistMatches = require('cloud/jobs/persistMatches');
 var sandbox = require('cloud/jobs/sandbox');
 
