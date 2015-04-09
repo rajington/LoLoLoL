@@ -14,7 +14,7 @@ exports.REGIONS = [
 
 // maybe make a common element array?
 exports.STATS = {
-  CHAMPION: {
+  Champion: {
     PARTICIPANT: [
       "assists",
       "champLevel",
@@ -66,7 +66,7 @@ exports.STATS = {
       "firstDragon"
     ]
   },
-  ITEM: {
+  Item: {
     PARTICIPANT: [
       "assists",
       "champLevel",
@@ -110,7 +110,7 @@ exports.STATS = {
       "dragonKills"
     ],
   },
-  REGION_TIER: {
+  RegionTier: {
     PARTICIPANT: [
       "assists",
       "champLevel",
