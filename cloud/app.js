@@ -45,7 +45,7 @@ app.get('/', function(req, res) {
       promises.push(
 
           Parse.Cloud.httpRequest({
-            url: 'https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion/' + champ.get('championId'),
+            url: 'https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion/' + champ.get('identifier'),
             params: {
               api_key: RIOT_API_KEY
             },
@@ -76,7 +76,7 @@ app.get('/', function(req, res) {
       promises.push(
 
           Parse.Cloud.httpRequest({
-            url: 'https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion/' + champ.get('championId'),
+            url: 'https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion/' + champ.get('identifier'),
             params: {
               api_key: RIOT_API_KEY
             },

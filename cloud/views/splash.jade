@@ -12,7 +12,7 @@ html
     div(style='height: 720px;', class='container')
       h1(class='text-center', style='margin-bottom: 30px;') Summoners for the Ethical Treatment of Minions
       
-      div(class='center-block', style='width: 700px;')
+      div(class='center-block', style='max-width: 700px;')
         p(class='text-primary lead text-uppercase', style='font-size: 50px;') "Minions" and "Monsters" are 
           strong not 
           | ours
@@ -20,7 +20,7 @@ html
     div
       div(class='container-fluid')
         div(class='row')
-          div(id='main-carousel', class='carousel slide center-block', style='margin-bottom: 60px;')
+          div(id='main-carousel', class='carousel slide center-block')
             ol(class='carousel-indicators')
               li(data-target='#main-carousel', data-slide-to='0', class='active')
               li(data-target="#main-carousel', data-slide-to='1')
@@ -60,57 +60,65 @@ html
               span(class='glyphicon glyphicon-chevron-right', aria-hidden='true')
               span(class='sr-only') Next
     
-    div(class='container')
-      select(class='form-control', style='width: 100px;')
-        option BR
-        option EUNE
-        option EUW
-        option KR
-        option LAN
-        option LAS
-        option(selected) NA
-        option OCE
-        option RU
-        option TU
-      
-      div(class='row')
-        div(style='margin-top: 30px;')
-          h1(class='top-3-header text-primary') Noble Champions
-          each champ in leastMinionsKilledChamps
-            div(class='col-md-4', style='position:relative;')
-              a(href='/champion/#{champ.championId}')
-                img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.name}_0.jpg', style='cursor:pointer;')
-              p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
-              //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
-              p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/min:
-              p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled.toFixed(3)
-              blockquote
-                p= champ.quote
-                footer= champ.champName
-          div
-            a(href='/champion?sort=asc', class='text-primary', style='font-size: 20px;') View more heroes
-              span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
-      
-      div(class='row')  
-        div(style='margin-top: 30px;')
-          h1(class='top-3-header text-danger') Neutral Killers
+    div(style='background-color: #337ab7;')
+      div(class='container')
+        select(class='row form-control', style='width: 100px; margin-top: 30px;')
+          option BR
+          option EUNE
+          option EUW
+          option KR
+          option LAN
+          option LAS
+          option(selected) NA
+          option OCE
+          option RU
+          option TU
+        
+        div(class='row')
+          div(style='margin-top: 10px;')
+            p(class='top-3-header text-center champ-type-title') Noble Champions
+            p(class='champ-type-blurb') These champions are the real heroes of Summoner's Rift, 
+              | and their URF stats prove it Whether they win or lose, it's obvious that they strive to create an
+              | atmosphere of acceptance for our Neutral brothers and sisters. Click on the profiles to see more
+              | URF Neutral-friendly stats or...
+            p(class='text-center', style='margin-bottom: 30px;')
+              a(href='/champion?sort=asc', style='color: white; font-size: 32px;') View more heroes
+                span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
+              
+            each champ in leastMinionsKilledChamps
+              div(class='col-md-4', style='position:relative;')
+                a(href='/champion/#{champ.championId}')
+                  img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.name}_0.jpg', style='cursor:pointer;')
+                p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
+                //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
+                p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/game:
+                p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled ? champ.minionsKilled.toFixed(1) : 0
+                blockquote
+                  p= champ.quote
+                  footer= champ.champName
+    
+    div(style='background-color: #a94442;')
+      div(class='container')  
+        div(class='row', style='margin-top: 30px;')
+          p(class='top-3-header text-center champ-type-title') Neutral Killers
+          p(class='champ-type-blurb')
           each champ in mostMinionsKilledChamps
             div(class='col-md-4', style='position:relative;')
               a(href='/champion/#{champ.championId}')
                 img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.name}_0.jpg', style='cursor:pointer;')
               p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
               //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
-              p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/min:
-              p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled.toFixed(3)
+              p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/game:
+              p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled ? champ.minionsKilled.toFixed(1) : 0
               blockquote
                 p= champ.quote
                 footer= champ.champName
-          div
-            a(href='/champion?sort=desc', class='text-danger', style='font-size: 20px;') See the other killers on our list
+          div(style='margin: 20px 0;')
+            a(href='/champion?sort=desc', style='color: white; font-size: 20px;') See the other killers on our list
               span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
       
       
-    div(class='container-fluid', style='margin-top: 30px; background-color: #222')
+    div(class='container-fluid', style='background-color: #222;')
       p(class='text-center', style='color: white;') © 2015 SETM
       
       
