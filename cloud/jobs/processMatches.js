@@ -53,7 +53,8 @@ Parse.Cloud.job("processMatches", function(request, status) {
     output('fetching ' + numMatches + ' matches');
     var promises = [];
     _.each(arguments, function(response, regionId){
-      var matchIds = _.first(response.data, 1);
+      // var matchIds = _.first(response.data, 1);
+      var matchIds = response.data;
       var region = CONSTANTS.REGIONS[regionId];
       _.each(matchIds, function(matchId){
         promises.push(
