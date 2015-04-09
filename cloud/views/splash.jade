@@ -91,7 +91,7 @@ html
                   img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.name}_0.jpg', style='cursor:pointer;')
                 p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
                 //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
-                p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/min:
+                p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/game:
                 p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled ? champ.minionsKilled.toFixed(1) : 0
                 blockquote
                   p= champ.quote
@@ -108,7 +108,7 @@ html
                 img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.name}_0.jpg', style='cursor:pointer;')
               p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
               //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
-              p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/min:
+              p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/game:
               p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled ? champ.minionsKilled.toFixed(1) : 0
               blockquote
                 p= champ.quote
