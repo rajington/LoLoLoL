@@ -11,6 +11,8 @@ exports.REGIONS = [
   "ru"
 ];
 
+
+// maybe make a common element array?
 exports.STATS = {
   CHAMPION: [
     "assists",
@@ -101,6 +103,47 @@ exports.STATS = {
     "winner"
   ],
   ITEM_TEAM: [
+    "baronKills",
+    "dragonKills"
+  ],
+  REGION_TIER: [
+    "assists",
+    "champLevel",
+    "deaths",
+    "goldEarned",
+    "goldSpent",
+    "inhibitorKills",
+    "killingSprees",
+    "kills",
+    "largestCriticalStrike",
+    "largestKillingSpree",
+    "largestMultiKill",
+    "magicDamageDealt",
+    "magicDamageDealtToChampions",
+    "magicDamageTaken",
+    "minionsKilled",
+    "neutralMinionsKilled",
+    "neutralMinionsKilledEnemyJungle",
+    "neutralMinionsKilledTeamJungle",
+    "pentaKills",
+    "physicalDamageDealt",
+    "physicalDamageDealtToChampions",
+    "physicalDamageTaken",
+    "totalDamageDealt",
+    "totalDamageDealtToChampions",
+    "totalDamageTaken",
+    "totalHeal",
+    "totalTimeCrowdControlDealt",
+    "totalUnitsHealed",
+    "towerKills",
+    "trueDamageDealt",
+    "trueDamageDealtToChampions",
+    "trueDamageTaken",
+    "unrealKills",
+    "wardsKilled",
+    "wardsPlaced"
+  ],
+  REGION_TIER_TEAM: [
     "baronKills",
     "dragonKills"
   ]
