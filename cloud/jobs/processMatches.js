@@ -76,8 +76,10 @@ Parse.Cloud.job("processMatches", function(request, status) {
     _.each(arguments, function(response){
       var match = response.data;
       _.chain(match.teams).pluck('bans').flatten().each(function(ban){
-        var champion = champions.getOrCreate(ban.championId, {bans: 0});
-        champion.increment('bans');
+        if(ban){
+          var champion = champions.getOrCreate(ban.championId, {bans: 0});
+          champion.increment('bans');
+        }
       });
 
       _.each(match.participants, function(participant){
