@@ -9,17 +9,6 @@ app.set('views', 'cloud/views');  // Specify the folder to find templates
 app.set('view engine', 'jade');    // Set the template engine
 app.use(express.bodyParser());    // Middleware for reading request body
 
-
-// TODO: definitely don't do this here like this, this is just for rate limit increase request
-app.get('/riot', function(req, res) {
-  var query = new Parse.Query("Champion");
-  query.limit(1000);
-  query.descending('minionsKilled');
-  query.find().then(function(champions) {
-    res.render('riot', { champions: champions });
-  });
-});
-
 // This is an example of hooking up a request handler with a specific request
 // path and HTTP verb using the Express routing API.
 app.get('/', function(req, res) {
@@ -159,6 +148,58 @@ app.get('/champion/:id', function(req, res) {
     });
   });
 
+});
+
+
+// TODO: definitely don't do this here like this, this is just for rate limit increase request
+app.get('/riot', function(req, res) {
+  var query = new Parse.Query("Champion");
+  query.limit(1000);
+  query.descending('minionsKilled');
+  query.find().then(function(champions) {
+    res.render('riot', { champions: champions });
+  });
+});
+
+app.post('/summoners', function(req, res) {
+  var region = req.body.region;
+  var name = req.body.name;
+  var summoner;
+  Parse.Config.get().then(function(config){
+    return config.get('RIOT_API_KEY');
+  }).then(function(RIOT_API_KEY){
+    return Parse.Cloud.httpRequest({
+      url: 'https://'+region+'.api.pvp.net/api/lol/'+region+'/v1.4/summoner/by-name/'+name,
+      params: {
+        api_key: RIOT_API_KEY
+      }
+    });
+  }).then(function(response){
+    Parse.Cloud.useMasterKey();
+    summoner = response.data[name];
+    var query = new Parse.Query("Summoner");
+    query.equalTo('identifier', summoner.id);
+    return query.first();
+  }).then(function(result){
+    if(_.isUndefined(result)){
+      var Summoner = Parse.Object.extend("Summoner");
+      var newSummoner = new Summoner({
+        identifier: summoner.id,
+        region: region,
+        name: summoner.name,
+        profileIconId: summoner.profileIconId
+      });
+      return newSummoner.save();
+    }
+  }).then(function(newSummoner){
+    if(newSummoner){
+      res.end();
+    } else {
+      res.status(409).json({error: 'already exists'});
+    }
+  }, function(error){
+    res.status(404).json({error: 'name not found'});
+  });
 });
 
 // Example reading from the request query string of an HTTP get request.
