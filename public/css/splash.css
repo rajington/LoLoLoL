@@ -22,3 +22,17 @@
 .top-3-header {
   margin-bottom: 40px;
 }
+
+.champ-type-title {
+  color: white;
+  font-size: 80px;
+  text-shadow: -1px 0 black, 0 3px black, 2px 0 black, 0 -1px black;
+}
+
+.champ-type-blurb {
+  color: white;
+  font-size: 23px;
+  max-width: 900px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
