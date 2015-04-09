@@ -5,6 +5,11 @@ var CONSTANTS = require('cloud/jobs/constants');
 Parse.Cloud.job("updateChampions", function(request, status) {
   Parse.Cloud.useMasterKey();
 
+  var output = function(message){
+    status.message(message);
+    console.log(message);
+  }
+
   var champions = collectionHelper.getCollection("Champion");
   var items = collectionHelper.getCollection("Item");
   var regionTiers = collectionHelper.getCollection("RegionTier");
@@ -17,6 +22,7 @@ Parse.Cloud.job("updateChampions", function(request, status) {
     RIOT_API_KEY = config.get('RIOT_API_KEY')
     return RIOT_API_KEY;
   }).then(function(){
+    output('fetching collections');
     return Parse.Promise.when(
       _.map([champions, items, regionTiers], function(collection){
         collection.fetch();
@@ -26,6 +32,7 @@ Parse.Cloud.job("updateChampions", function(request, status) {
     var beginDate = Date.now()/1000 - 600; // 10 minutes ago
     beginDate -= beginDate%300; // floored to 5 minute increment
 
+    output('fetching matches at ' + beginDate);
     var promises = [];
     _.each(CONSTANTS.REGIONS, function(region){
       promises.push(
@@ -42,13 +49,13 @@ Parse.Cloud.job("updateChampions", function(request, status) {
     });
     return Parse.Promise.when(promises);
   }).then(function(){
-    // console.log("Found: " + response.data.length + " samples @ " + beginDate);
-    // var matchIds = _.first(response.data, 9); // make sure we don't go over our rate-limit
+    var numMatches = _.reduce(arguments, function(memo, matches){
+      return memo + matches.length;
+    }, 0);
+    output('fetching ' + numMatches + ' matches');
     var promises = [];
-    // console.log(arguments);
     _.each(arguments, function(matchIds, regionId){
       var region = CONSTANTS.REGIONS[regionId];
-      console.log(CONSTANTS.REGIONS[regionId] + ": " + matchIds.length);
       _.each(_.first(matchIds, 1), function(matchId){
         promises.push(
           Parse.Cloud.httpRequest({
@@ -62,41 +69,39 @@ Parse.Cloud.job("updateChampions", function(request, status) {
     });
     return Parse.Promise.when(promises);
   }).then(function(){
+    output('processing matches');
     _.each(arguments, function(response){
       var match = response.data;
       _.each(match.participants, function(participant){
         var champion = champions.getOrCreate(participant.championId);
-        var team = _.findWhere(match.teams, {teamId: participant.teamId});
+        var stats = {
+          PARTICIPANT: participant.stats,
+          TEAM: _.findWhere(match.teams, {teamId: participant.teamId})
+        };
         var regionTier = regionTiers.getOrCreate(match.region.toLowerCase()+'_'+participant.highestAchievedSeasonTier);
 
-        champion.updateAverages(CONSTANTS.STATS.CHAMPION, participant.stats);
-        champion.updateAverages(CONSTANTS.STATS.CHAMPION_TEAM, team);
-        champion.increment('samples');
 
-        regionTier.updateAverages(CONSTANTS.STATS.REGION_TIER, participant.stats);
-        regionTier.updateAverages(CONSTANTS.STATS.REGION_TIER_TEAM, team);
-        regionTier.increment('samples');
+        champion.updateAverages(CONSTANTS.STATS.CHAMPION, stats);
+        regionTier.updateAverages(CONSTANTS.STATS.REGION_TIER, stats);
 
         for(var i=0; i<=6; i++){
           var itemId = participant.stats['item'+i]
           if(itemId == 0) { continue; }
 
           var item = items.getOrCreate(itemId);
-          item.updateAverages(CONSTANTS.STATS.ITEM, participant.stats);
-          item.updateAverages(CONSTANTS.STATS.ITEM_TEAM, team);
-
-          item.increment('samples');
+          item.updateAverages(CONSTANTS.STATS.ITEM, stats);
         }
       });
     });
 
+    output('saving collections');
     return Parse.Promise.when(
-      _.map([champions, items, regions], function(collection){
+      _.map([champions, items, regionTiers], function(collection){
         Parse.Object.saveAll(collection.models);
       })
     );
   }).then(function(){
-    status.success('Updated champions');
+    status.success('processed matches');
   }, function(error){
     status.error("Error: " + error.code + " " + error.message);
   });
