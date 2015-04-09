@@ -10,12 +10,12 @@ Parse.Cloud.job("processMatches", function(request, status) {
     console.log(message);
   }
 
+  // variables that persist across promises
+  var RIOT_API_KEY, numMatches, beginDate;
+
   var champions = collectionHelper.getCollection("Champion");
   var items = collectionHelper.getCollection("Item");
   var regionTiers = collectionHelper.getCollection("RegionTier");
-
-  // variables that persist across promises
-  var RIOT_API_KEY;
 
   Parse.Config.get(
   ).then(function(config){
@@ -29,7 +29,7 @@ Parse.Cloud.job("processMatches", function(request, status) {
       })
     );
   }).then(function(){
-    var beginDate = Date.now()/1000 - 600; // 10 minutes ago
+    beginDate = Date.now()/1000 - 600; // 10 minutes ago
     beginDate -= beginDate%300; // floored to 5 minute increment
 
     output('fetching matches at ' + beginDate);
@@ -42,21 +42,20 @@ Parse.Cloud.job("processMatches", function(request, status) {
             api_key: RIOT_API_KEY,
             beginDate: beginDate
           }
-        }).then(function(response){
-          return response.data;
         })
       );
     });
     return Parse.Promise.when(promises);
   }).then(function(){
-    var numMatches = _.reduce(arguments, function(memo, matches){
-      return memo + matches.length;
+    numMatches = _.reduce(arguments, function(sum, response){
+      return sum + response.data.length;
     }, 0);
     output('fetching ' + numMatches + ' matches');
     var promises = [];
-    _.each(arguments, function(matchIds, regionId){
+    _.each(arguments, function(response, regionId){
+      var matchIds = _.first(response.data, 1);
       var region = CONSTANTS.REGIONS[regionId];
-      _.each(_.first(matchIds, 1), function(matchId){
+      _.each(matchIds, function(matchId){
         promises.push(
           Parse.Cloud.httpRequest({
             url: 'https://' + region + '.api.pvp.net/api/lol/' + region + '/v2.2/match/'+matchId,
@@ -72,6 +71,11 @@ Parse.Cloud.job("processMatches", function(request, status) {
     output('processing matches');
     _.each(arguments, function(response){
       var match = response.data;
+      _.chain(match.teams).pluck('bans').flatten().each(function(ban){
+        var champion = champions.getOrCreate(ban.championId);
+        champion.increment('bans');
+      });
+
       _.each(match.participants, function(participant){
         var champion = champions.getOrCreate(participant.championId);
         var stats = {
@@ -95,13 +99,17 @@ Parse.Cloud.job("processMatches", function(request, status) {
     });
 
     output('saving collections');
-    return Parse.Promise.when(
-      _.map([champions, items, regionTiers], function(collection){
-        Parse.Object.saveAll(collection.models);
-      })
-    );
-  }).then(function(){
-    status.success('processed matches');
+    return Parse.Object.saveAll([].concat(
+      champions,
+      items,
+      regionTiers
+    ));
+  }).then(function(list){
+    var records = _.reduce(list, function(sum, collection){
+      return sum + collection.length;
+    }, 0);
+    // show as much information in the short Parse job status
+    status.success(records + ' = ' + numMatches + ' @ ' + beginDate/100%1000000);
   }, function(error){
     status.error("Error: " + error.code + " " + error.message);
   });
