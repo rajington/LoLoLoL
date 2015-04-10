@@ -150,14 +150,46 @@ app.get('/champion/:id', function(req, res) {
 
 });
 
+// TODO: view caching should be enabled!
+app.get('/tables', function(req, res) {
+  Parse.Cloud.useMasterKey();
+  var tables = [
+    {collection: 'Champion', limit: 1000},
+    {collection: 'Item', limit: 1000},
+    {collection: 'RegionTier', limit: 1000},
+    {collection: 'Summoner', sort: 'assists'},
+    {collection: 'Summoner', sort: 'goldEarned'},
+    {collection: 'Summoner', sort: 'kills'},
+    {collection: 'Summoner', sort: 'largestCriticalStrike'},
+    {collection: 'Summoner', sort: 'largestKillingSpree'},
+    {collection: 'Summoner', sort: 'magicDamageDealtToChampions'},
+    {collection: 'Summoner', sort: 'minionsKilled'},
+    {collection: 'Summoner', sort: 'neutralMinionsKilled'},
+    {collection: 'Summoner', sort: 'pentaKills'},
+    {collection: 'Summoner', sort: 'physicalDamageDealtToChampions'},
+    {collection: 'Summoner', sort: 'totalDamageDealt'},
+    {collection: 'Summoner', sort: 'totalDamageDealtToChampions'},
+    {collection: 'Summoner', sort: 'totalDamageTaken'},
+    {collection: 'Summoner', sort: 'totalHeal'},
+    {collection: 'Summoner', sort: 'totalTimeCrowdControlDealt'},
+    {collection: 'Summoner', sort: 'totalUnitsHealed'},
+    {collection: 'Summoner', sort: 'objectives'}
+  ];
 
-// TODO: definitely don't do this here like this, this is just for rate limit increase request
-app.get('/riot', function(req, res) {
-  var query = new Parse.Query("Champion");
-  query.limit(1000);
-  query.descending('minionsKilled');
-  query.find().then(function(champions) {
-    res.render('riot', { champions: champions });
+  var promises = _.map(tables, function(table){
+    table = _.defaults(table, {sort: 'minionsKilled', limit: 10});
+    var query = new Parse.Query(table.collection);
+    query.descending(table.sort);
+    query.limit(table.limit);
+    return query.collection().fetch().then(function(results){
+      table.results = results.toJSON();
+    });
+  });
+
+  Parse.Promise.when(promises).then(function(){
+    res.render('tables', { tables: tables });
+  }, function(error){
+    res.status(400).json({error: error});
   });
 });
 

@@ -1,0 +1,29 @@
+
+doctype 5
+html
+  head
+    title SETM
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
+    link(rel='stylesheet', href='//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.css')
+    script(src='//code.jquery.com/jquery-1.11.1.min.js')
+    script(src='//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js')
+    script(src='//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.js')
+  body
+    div(class='container')
+      each table in tables
+        table(id=table.collection+'_'+table.sort, class='table table-striped table-bordered')
+          thead
+            tr
+              each val,key in table.results[0]
+                th= key
+          tbody
+            each result in table.results
+              tr
+                each val in result
+                  td= val
+                
+    script(type='text/javascript')
+      $(document).ready(function() {
+        $('table').dataTable();
+      });
