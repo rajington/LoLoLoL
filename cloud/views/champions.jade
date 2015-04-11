@@ -19,7 +19,7 @@ html
         each champ in champions
           tr
             td
-              img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/champion/#{champInfo[champ.get('identifier')]}.png')
+              img(src='http://ddragon.leagueoflegends.com/cdn/#{version}/img/champion/#{champInfo[champ.get('identifier')]}.png')
             td= champInfo[champ.get('identifier')]
             td= champ.get('minionsKilled') ? champ.get('minionsKilled').toFixed(1) : 0
     

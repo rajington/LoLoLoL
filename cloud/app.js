@@ -1,5 +1,8 @@
 var _ = require('underscore');
 
+// we should get this via a background job and config variable later
+var version = "5.7.2";
+
 // These two lines are required to initialize Express in Cloud Code.
 express = require('express');
 app = express();
@@ -108,7 +111,7 @@ app.get('/champion', function(req, res) {
     champions = champs;
 
     return Parse.Cloud.httpRequest({
-      url: 'http://ddragon.leagueoflegends.com/cdn/5.7.2/data/en_US/champion.json',
+      url: 'http://ddragon.leagueoflegends.com/cdn/' + version + '/data/en_US/champion.json',
       success: function(resp) {
         console.log('got champion.json')
       },
@@ -123,7 +126,7 @@ app.get('/champion', function(req, res) {
     });
     champInfoDebug = response.text;
   }).then(function(){
-    res.render('champions', { champions: champions, champInfo: champInfo, champInfoDebug:champInfoDebug });
+    res.render('champions', { champions: champions, champInfo: champInfo, champInfoDebug:champInfoDebug, version: version });
   });
 
 });
