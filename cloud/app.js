@@ -113,10 +113,10 @@ app.get('/champion', function(req, res) {
     return Parse.Cloud.httpRequest({
       url: 'http://ddragon.leagueoflegends.com/cdn/' + version + '/data/en_US/champion.json',
       success: function(resp) {
-        console.log('got champion.json')
+        console.log('got champion.json');
       },
       error: function(resp) {
-        console.log('did not get champion json succssfully: ' + resp.status)
+        console.log('did not get champion json succssfully: ' + resp.status);
       }
     });
 
@@ -132,23 +132,36 @@ app.get('/champion', function(req, res) {
 });
 
 app.get('/champion/:id', function(req, res) {
+  var champId = parseInt(req.params.id, 10);
 
   var RIOT_API_KEY;
 
   Parse.Config.get().then(function(config){
     RIOT_API_KEY = config.get('RIOT_API_KEY')
     return RIOT_API_KEY;
-  }).then(function(){
+  });
+
+  var champData;
+
+  var query = new Parse.Query("Champion");
+  query.equalTo('identifier', champId);
+  query.find().then(function(champ) {
+    champData = champ[0];
+
     return Parse.Cloud.httpRequest({
-      url: 'https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion/' + req.params.id,
+      url: 'https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion/' + champId,
       params: {
-        api_key: RIOT_API_KEY,
-        champData: 'all'
+        api_key: RIOT_API_KEY
       },
-      success: function(response) {
-        res.render('champion', { champData: response.data, debug: response.text });
+      success: function(resp) {
+        console.log('got static champ json');
+      },
+      error: function(resp) {
+        console.log('did not get static champ json succssfully: ' + resp.status);
       }
     });
+  }).then(function(staticData){
+    res.render('champion', { champData: champData, staticData: staticData.data });
   });
 
 });
