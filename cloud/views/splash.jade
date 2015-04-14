@@ -35,7 +35,7 @@ html
             each champ in leastMinionsKilledChamps
               div(class='col-md-4', style='position:relative;')
                 a(href='/champion/#{champ.identifier}')
-                  img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.name}_0.jpg', style='cursor:pointer;')
+                  img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.key}_0.jpg', style='cursor:pointer;')
                 p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
                 //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
                 p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/game:
@@ -52,7 +52,7 @@ html
           each champ in mostMinionsKilledChamps
             div(class='col-md-4', style='position:relative;')
               a(href='/champion/#{champ.identifier}')
-                img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.name}_0.jpg', style='cursor:pointer;')
+                img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.key}_0.jpg', style='cursor:pointer;')
               p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total minions killed:
               //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
               p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/game:
