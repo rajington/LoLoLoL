@@ -38,17 +38,33 @@ html
         
         p Anti-neutral items bought (on average): &nbsp;
         p(style='margin-left: 40px;') 0.05 x &nbsp;
-          img(src='http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/3512.png')
+          img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/3512.png')
         
         p Anti-neutral spells used (on average): &nbsp;
         p(style='margin-left: 40px;') 0.10 x &nbsp;
-          img(src='http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/SummonerSmite.png')
+          img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/spell/SummonerSmite.png')
         
-        p Other:
-        p(style='margin-left: 40px;')
-          div(class='row')  
-            div(class='col-md-1', style='width: 40px;')
-            img(class='col-md-2', src='http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/InfernalGuardian.png')
-            span(class='col-md-9', style='font-size: 16px;') 
-              | On the one hand, Annie offers employment for her best friend Tibbers, a large Neutral bear.
-              | On the other hand, Tibbers is often sent to his death, so we'll call this one a wash.
+        if scoreComments.passive.comment
+          p Passive:
+            p(style='margin-left: 40px;')
+              div(class='row')  
+                div(class='col-md-1', style='width: 40px;')
+                img(class='col-md-2', src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/passive/#{scoreComments.passive.id}')
+                span(class='col-md-9', style='font-size: 16px;')= scoreComments.passive.comment
+
+
+        p Spells:
+        each values, spellName in scoreComments.spells
+          if values.comment
+            p(style='margin-left: 40px;')
+              div(class='row')  
+                div(class='col-md-1', style='width: 40px;')
+                img(class='col-md-2', src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/spell/#{spellName}.png')
+                span(class='col-md-9', style='font-size: 16px;')= values.comment
+
+        if scoreComments.other.comment
+          p Other:
+            p(style='margin-left: 40px;')
+              div(class='row')  
+                div(class='col-md-1', style='width: 40px;')
+                span(class='col-md-9', style='font-size: 16px;')= scoreComments.other.comment
