@@ -18,7 +18,7 @@ html
           | ours
         h2(class='text-muted lead text-uppercase') to kill, command, pillage, or abuse in any other way.
     
-    div(style='background-color: #337ab7;')
+    div(style='background-color: #337ab7; padding-bottom: 60px;')
       div(class='container')
         
         div(class='row')
@@ -40,11 +40,8 @@ html
                 //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
                 p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/game:
                 p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled ? champ.minionsKilled.toFixed(1) : 0
-                blockquote
-                  p= champ.quote
-                  footer= champ.champName
     
-    div(style='background-color: #a94442;')
+    div(style='background-color: #a94442; padding-bottom: 60px;')
       div(class='container')  
         div(class='row', style='margin-top: 30px;')
           p(class='top-3-header text-center champ-type-title') Sentients Killers
@@ -57,9 +54,7 @@ html
               //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
               p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Minions killed/game:
               p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled ? champ.minionsKilled.toFixed(1) : 0
-              blockquote
-                p= champ.quote
-                footer= champ.champName
+              
           div(style='margin: 20px 0;')
             a(href='/champion?sort=desc', style='color: white; font-size: 20px;') See the other killers on our list
               span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
@@ -70,7 +65,7 @@ html
           div(id='main-carousel', class='carousel slide center-block')
             ol(class='carousel-indicators')
               li(data-target='#main-carousel', data-slide-to='0', class='active')
-              li(data-target="#main-carousel', data-slide-to='1')
+              li(data-target='#main-carousel', data-slide-to='1')
             
             div(class='carousel-inner', role='listbox')
               div(class='item active')
