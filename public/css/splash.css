@@ -1,3 +1,27 @@
+@media(max-width:767px){
+  .champ-type-title {
+    font-size: 40px;
+  }
+}
+
+@media(min-width:768px){
+  .champ-type-title {
+    font-size: 50px;
+  }
+}
+
+@media(min-width:992px){
+  .champ-type-title {
+    font-size: 60px;
+  }
+}
+
+@media(min-width:1200px){
+  .champ-type-title {
+    font-size: 80px;
+  }
+}
+
 .cs-stat-img-text {
   position:absolute;
   color:white;
@@ -25,7 +49,6 @@
 
 .champ-type-title {
   color: white;
-  font-size: 80px;
   text-shadow: -1px 0 black, 0 3px black, 2px 0 black, 0 -1px black;
 }
 
