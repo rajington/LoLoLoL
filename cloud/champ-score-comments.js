@@ -2291,8 +2291,8 @@ var scoreComments = {
   },
   "Teemo": {
     "passive": {
-      "comment": "",
-      "score": 0,
+      "comment": "Teemo likes to watch from afar as wave after wave of Sentients perish from his mushrooms. Hut, two, three, -400",
+      "score": -400,
       "id": "Teemo_Camouflage.png"
     },
     "other": {
@@ -2301,20 +2301,20 @@ var scoreComments = {
     },
     "spells": {
       "BlindingDart": {
-        "comment": "",
-        "score": 0
+        "comment": "He blinds Sentients before killing them. Torture? Check. Murder? Check. Thinly-veiled psychosis? Check. Heart of Gold? (ﾉಥ益ಥ）ﾉ﻿ ┻━┻",
+        "score": -70
       },
       "BantamTrap": {
-        "comment": "",
-        "score": 0
+        "comment": "I.e. chemical warfare on Sentients. That is all.",
+        "score": -66
       },
       "ToxicShot": {
-        "comment": "",
-        "score": 0
+        "comment": "We've written so much about his destruction already that we can't even...",
+        "score": -100
       },
       "MoveQuick": {
-        "comment": "",
-        "score": 0
+        "comment": "Evading the authorities after a Sentient massacre? That'll cost you.",
+        "score": 30
       }
     }
   },
