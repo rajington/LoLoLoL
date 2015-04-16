@@ -12,35 +12,35 @@ html
         p(class='text-muted')= staticData.title
         img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{staticData.key}_0.jpg')
       div(class='col-md-8 jumbotron', style='margin-top: 20px;')
-        h4 Neutral Friendliness Score:
+        h4 Sentient Friendliness Score:
         p(style='font-size:88px;') 80
-          span(class='text-success', style='margin-left: 20px; font-size: 32px;') Neutral hug!
+          span(class='text-success', style='margin-left: 20px; font-size: 32px;')
         
-        p Lane Sentients killed per match: &nbsp;
-          span 
-            strong= champData.get('minionsKilled').toFixed(1)
+        p(class='row') 
+          span(class='col-md-10') Lane Sentients killed per match: &nbsp;
+          span(class='col-md-2', style='font-size: 24px;')= champData.get('minionsKilled').toFixed(1)
         
-        p Camp Sentients killed per match: &nbsp;
-          span
-            strong= champData.get('neutralMinionsKilled').toFixed(1)
+        p(class='row') 
+          span(class='col-md-10') Camp Sentients killed per match: &nbsp;
+          span(class='col-md-2', style='font-size: 24px;')= champData.get('neutralMinionsKilled').toFixed(1)
         
-        p Dragons killed per match: &nbsp;
-          span
-            strong= champData.get('dragonKills').toFixed(1)
+        p(class='row') 
+          span(class='col-md-10') Dragons killed per match: &nbsp;
+          span(class='col-md-2', style='font-size: 24px;')= champData.get('dragonKills').toFixed(1)
         
-        p Barons killed per match: &nbsp;
-          span
-            strong= champData.get('baronKills').toFixed(1)
+        p(class='row') 
+          span(class='col-md-10') Barons killed per match: &nbsp;
+          span(class='col-md-2', style='font-size: 24px;')= champData.get('baronKills').toFixed(1)
       
-        p Inhibitors destroyed per match: &nbsp;
-          span
-            strong= champData.get('inhibitorKills').toFixed(1)
+        p(class='row')
+          span(class='col-md-10') Inhibitors destroyed per match: &nbsp;
+          span(class='col-md-2', style='font-size: 24px;')= champData.get('inhibitorKills').toFixed(1)
         
-        p Anti-neutral items bought (on average): &nbsp;
+        p Anti-Sentient items bought (on average): &nbsp;
         p(style='margin-left: 40px;') 0.05 x &nbsp;
           img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/3512.png')
         
-        p Anti-neutral spells used (on average): &nbsp;
+        p Anti-Sentient spells used (on average): &nbsp;
         p(style='margin-left: 40px;') 0.10 x &nbsp;
           img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/spell/SummonerSmite.png')
         
@@ -48,9 +48,9 @@ html
           p Passive:
             p(style='margin-left: 40px;')
               div(class='row')  
-                div(class='col-md-1', style='width: 40px;')
-                img(class='col-md-2', src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/passive/#{scoreComments.passive.id}')
-                span(class='col-md-9', style='font-size: 16px;')= scoreComments.passive.comment
+                img(class='col-md-2 col-md-offset-1', src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/passive/#{scoreComments.passive.id}')
+                span(class='col-md-7', style='font-size: 16px;')= scoreComments.passive.comment
+                span(class='col-md-2', style='font-size: 24px;')= scoreComments.passive.score
 
 
         p Spells:
@@ -58,13 +58,13 @@ html
           if values.comment
             p(style='margin-left: 40px;')
               div(class='row')  
-                div(class='col-md-1', style='width: 40px;')
-                img(class='col-md-2', src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/spell/#{spellName}.png')
-                span(class='col-md-9', style='font-size: 16px;')= values.comment
+                img(class='col-md-2 col-md-offset-1', src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/spell/#{spellName}.png')
+                span(class='col-md-7', style='font-size: 16px;')= values.comment
+                span(class='col-md-2', style='font-size: 24px;')= values.score
 
         if scoreComments.other.comment
           p Other:
             p(style='margin-left: 40px;')
               div(class='row')  
-                div(class='col-md-1', style='width: 40px;')
-                span(class='col-md-9', style='font-size: 16px;')= scoreComments.other.comment
+                span(class='col-md-9 col-md-offset-1', style='font-size: 16px;')= scoreComments.other.comment
+                span(class='col-md-2', style='font-size: 24px;')= scoreComments.other.score
