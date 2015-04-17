@@ -3,6 +3,7 @@ var scores = require('cloud/champ-score-comments');
 
 // we should get this via a background job and config variable later
 var version = "5.7.2";
+var ignoredItems = [ 3361, 3362, 3363, 3364 ];
 
 // These two lines are required to initialize Express in Cloud Code.
 express = require('express');
@@ -97,6 +98,7 @@ app.get('/', function(req, res) {
   })
   .then(function(){
   	var mostItemQuery = new Parse.Query("Item");
+  	mostItemQuery.notContainedIn('identifier', ignoredItems);
 	  mostItemQuery.descending("minionsKilled");
 	  mostItemQuery.limit(3);
 		return mostItemQuery.find()
@@ -105,6 +107,7 @@ app.get('/', function(req, res) {
   	mostKillsItems = items;
 
   	var leastItemQuery = new Parse.Query("Item");
+  	leastItemQuery.notContainedIn('identifier', ignoredItems);
 	  leastItemQuery.ascending("minionsKilled");
 	  leastItemQuery.limit(3);
 		return leastItemQuery.find()
