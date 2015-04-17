@@ -1,6 +1,6 @@
-var _ = require('underscore');
+var _ = require('cloud/vendor/underscore');
 var scores = require('cloud/champ-score-comments');
-
+var tableDefaults = require('cloud/table-defaults')
 // we should get this via a background job and config variable later
 var version = "5.7.2";
 var ignoredItems = [ 3361, 3362, 3363, 3364 ];
@@ -192,48 +192,106 @@ app.get('/champion/:id', function(req, res) {
 
 });
 
-// TODO: view caching should be enabled!
-app.get('/tables', function(req, res) {
-  Parse.Cloud.useMasterKey();
-  var tables = [
-    {collection: 'Champion', limit: 1000},
-    {collection: 'Item', limit: 1000},
-    {collection: 'RegionTier', limit: 1000},
-    {collection: 'Summoner', sort: 'assists'},
-    {collection: 'Summoner', sort: 'goldEarned'},
-    {collection: 'Summoner', sort: 'kills'},
-    {collection: 'Summoner', sort: 'largestCriticalStrike'},
-    {collection: 'Summoner', sort: 'largestKillingSpree'},
-    {collection: 'Summoner', sort: 'magicDamageDealtToChampions'},
-    {collection: 'Summoner', sort: 'minionsKilled'},
-    {collection: 'Summoner', sort: 'neutralMinionsKilled'},
-    {collection: 'Summoner', sort: 'pentaKills'},
-    {collection: 'Summoner', sort: 'physicalDamageDealtToChampions'},
-    {collection: 'Summoner', sort: 'totalDamageDealt'},
-    {collection: 'Summoner', sort: 'totalDamageDealtToChampions'},
-    {collection: 'Summoner', sort: 'totalDamageTaken'},
-    {collection: 'Summoner', sort: 'totalHeal'},
-    {collection: 'Summoner', sort: 'totalTimeCrowdControlDealt'},
-    {collection: 'Summoner', sort: 'totalUnitsHealed'},
-    {collection: 'Summoner', sort: 'objectives'}
-  ];
-
-  var promises = _.map(tables, function(table){
-    table = _.defaults(table, {sort: 'minionsKilled', limit: 10});
-    var query = new Parse.Query(table.collection);
-    query.descending(table.sort);
-    query.limit(table.limit);
-    return query.collection().fetch().then(function(results){
-      table.results = results.toJSON();
+app.get('/data', function(req, res){
+  Parse.Config.get().then(function(config){
+    return config.get('RIOT_API_KEY');
+  }).then(function(RIOT_API_KEY){
+    var promises = _.map(['Champion', 'Item', 'RegionTier'], function(collection){
+      var query = new Parse.Query(collection);
+      query.limit(1000); // maximum limit
+      return query.collection().fetch().then(function(results){
+        return results.toJSON();
+      });
     });
-  });
 
-  Parse.Promise.when(promises).then(function(){
-    res.render('tables', { tables: tables });
+    _.each({
+      champion: {
+        champData: 'image'
+      },
+      item: {
+        itemListData: 'image'
+      }
+    }, function(params, collection){
+      params = _.extend(params, {api_key: RIOT_API_KEY});
+      promises.push(Parse.Cloud.httpRequest({
+        url: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/' + collection,
+        params: params
+      }).then(function(response){
+        return _.toArray(response.data.data);
+      }));
+    });
+
+    return Parse.Promise.when(promises);
+  }).then(function(champions, items, regionTiers, championsMetadata, itemsMetadata){
+    _.each(champions, function(champion){
+      var championMetadata = _.findWhere(championsMetadata, {id: champion.identifier});
+      champion.name = championMetadata.name;
+      champion.image = championMetadata.image.full;
+    });
+
+    _.each(items, function(item){
+      var itemMetadata = _.findWhere(itemsMetadata, {id: item.identifier});
+      item.name = itemMetadata.name;
+      item.image = item.full;
+    });
+
+    res.json({
+      champions: champions,
+      items: items,
+      regionTiers: regionTiers,
+      tableDefaults: tableDefaults
+    });
   }, function(error){
     res.status(400).json({error: error});
   });
 });
+
+app.get('/champions', function(req, res) {
+  res.render('table');
+});
+
+// // TODO: view caching should be enabled!
+// app.get('/tables', function(req, res) {
+//   Parse.Cloud.useMasterKey();
+//   var tables = [
+//     {collection: 'Champion', limit: 1000},
+//     {collection: 'Item', limit: 1000},
+//     {collection: 'RegionTier', limit: 1000},
+//     {collection: 'Summoner', sort: 'assists'},
+//     {collection: 'Summoner', sort: 'goldEarned'},
+//     {collection: 'Summoner', sort: 'kills'},
+//     {collection: 'Summoner', sort: 'largestCriticalStrike'},
+//     {collection: 'Summoner', sort: 'largestKillingSpree'},
+//     {collection: 'Summoner', sort: 'magicDamageDealtToChampions'},
+//     {collection: 'Summoner', sort: 'minionsKilled'},
+//     {collection: 'Summoner', sort: 'neutralMinionsKilled'},
+//     {collection: 'Summoner', sort: 'pentaKills'},
+//     {collection: 'Summoner', sort: 'physicalDamageDealtToChampions'},
+//     {collection: 'Summoner', sort: 'totalDamageDealt'},
+//     {collection: 'Summoner', sort: 'totalDamageDealtToChampions'},
+//     {collection: 'Summoner', sort: 'totalDamageTaken'},
+//     {collection: 'Summoner', sort: 'totalHeal'},
+//     {collection: 'Summoner', sort: 'totalTimeCrowdControlDealt'},
+//     {collection: 'Summoner', sort: 'totalUnitsHealed'},
+//     {collection: 'Summoner', sort: 'objectives'}
+//   ];
+//
+//   var promises = _.map(tables, function(table){
+//     table = _.defaults(table, {sort: 'minionsKilled', limit: 10});
+//     var query = new Parse.Query(table.collection);
+//     query.descending(table.sort);
+//     query.limit(table.limit);
+//     return query.collection().fetch().then(function(results){
+//       table.results = results.toJSON();
+//     });
+//   });
+//
+//   Parse.Promise.when(promises).then(function(){
+//     res.render('tables', { tables: tables });
+//   }, function(error){
+//     res.status(400).json({error: error});
+//   });
+// });
 
 app.post('/summoners', function(req, res) {
   var region = req.body.region;
