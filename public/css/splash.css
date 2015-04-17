@@ -63,3 +63,7 @@
 .region {
   height: 150px;
 }
+
+.clickable {
+  cursor:pointer;
+}
