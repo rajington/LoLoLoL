@@ -3,7 +3,7 @@ var scores = require('cloud/champ-score-comments');
 var tableDefaults = require('cloud/table-defaults')
 // we should get this via a background job and config variable later
 var version = "5.7.2";
-var ignoredItems = [ 3361, 3362, 3363, 3364 ];
+var ignoredItems = [ 3256, 3257, 3361, 3362, 3363, 3364 ];
 
 // These two lines are required to initialize Express in Cloud Code.
 express = require('express');
@@ -21,6 +21,9 @@ app.get('/', function(req, res) {
   var mostKills = [];
   var leastKills = [];
   var mostKillsItems = [];
+  var leastKillsItems = [];
+  var mostRegionKills = [];
+  var leastRegionKills = [];
 
   var RIOT_API_KEY;
 
@@ -29,7 +32,6 @@ app.get('/', function(req, res) {
     return RIOT_API_KEY;
   })
   .then(function(){
-  	console.log('got RIOT_API_KEY')
   	// TODO: definitely want to refactor these calls out and store some of this data locally
 	  // in files if possible (though I'm not sure if that's going to soften the i/o blow)
 	  var mostMostQuery = new Parse.Query("Champion");
@@ -64,7 +66,6 @@ app.get('/', function(req, res) {
     return Parse.Promise.when(promises);
   })
   .then(function(){
-  	console.log('got least kills champs')
   	var leastChampQuery = new Parse.Query("Champion");
   	leastChampQuery.ascending("minionsKilled");
   	leastChampQuery.limit(3);
@@ -113,7 +114,53 @@ app.get('/', function(req, res) {
 		return leastItemQuery.find()
   })
   .then(function(items){
-	  	res.render('splash', { mostMinionsKilledChamps : mostKills, leastMinionsKilledChamps: leastKills, mostMinionsKilledItems: mostKillsItems, leastMinionsKilledItems: items });
+  	leastKillsItems = items
+
+  	var allRegions = new Parse.Query("RegionTier")
+  	return allRegions.find()
+  })
+  .then(function(regions){
+  	var regionCounts = {};
+  	var averageRegionKills = [];
+
+  	// loop over each region returned
+  	_.each(regions, function(region){
+  		var id = region.get('identifier');
+  		var regionKey = id.split('_')[0];
+
+  		if(!regionCounts[regionKey]) {
+  			regionCounts[regionKey] = [];
+  		}
+
+  		var minionsKilled = region.get('minionsKilled');
+  		regionCounts[regionKey].push(minionsKilled);
+  	});
+
+  	_.each(regionCounts, function(val, key){
+  		var counts = regionCounts[key];
+  		var len = counts.length;
+
+  		var avg = {};
+  		avg[key] = _.reduce(counts, function(memo, num) { return memo + num }, 0) / len;
+  		averageRegionKills.push(avg);
+  	});
+
+  	var sortFn = function(obj) {
+			return obj[_.keys(obj)[0]];
+  	};
+
+  	mostRegionKills = _.sortBy(averageRegionKills, sortFn).reverse().slice(0, 3);
+  	leastRegionKills = _.sortBy(averageRegionKills, sortFn).slice(0, 3);
+  })
+  .then(function(items){
+	  	res.render('splash', { 
+	  		mostMinionsKilledChamps : mostKills, 
+	  		leastMinionsKilledChamps: leastKills, 
+	  		mostMinionsKilledItems: mostKillsItems, 
+	  		leastMinionsKilledItems: leastKillsItems,
+	  		mostRegionKills: mostRegionKills,
+	  		leastRegionKills: leastRegionKills
+	  	});
 	});
   
 });

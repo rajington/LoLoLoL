@@ -57,12 +57,10 @@ html
                 
           div(class='col-md-6')
             div(class='row')
-              div(class='col-md-2')
-                img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/1001.png')
-              div(class='col-md-2')
-                img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/1001.png')
-              div(class='col-md-2')
-                img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/1001.png')
+              each region in leastRegionKills
+                each val, key in region
+                  div(class='col-md-4')
+                    img(src='images/#{key}.png', class='region')
 
     div(style='background-color: #a94442; padding-bottom: 60px;')
       div(class='container')  
@@ -92,12 +90,10 @@ html
                 
           div(class='col-md-6')
             div(class='row')
-              div(class='col-md-2')
-                img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/1001.png')
-              div(class='col-md-2')
-                img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/1001.png')
-              div(class='col-md-2')
-                img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/1001.png')
+              each region in mostRegionKills
+                each val, key in region
+                  div(class='col-md-4')
+                    img(src='images/#{key}.png', class='region')
 
     div
       div(class='container-fluid')
