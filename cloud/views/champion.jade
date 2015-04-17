@@ -2,7 +2,7 @@
 doctype 5
 html
   head
-    title #{staticData.name} | SETS
+    title #{staticData.name} | PETS
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
   body
@@ -36,13 +36,13 @@ html
           span(class='col-md-10') Inhibitors destroyed per match: &nbsp;
           span(class='col-md-2', style='font-size: 24px;')= champData.get('inhibitorKills').toFixed(1)
         
-        p Anti-Sentient items bought (on average): &nbsp;
-        p(style='margin-left: 40px;') 0.05 x &nbsp;
-          img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/3512.png')
+        //- p Anti-Sentient items bought (on average): &nbsp;
+        //- p(style='margin-left: 40px;') 0.05 x &nbsp;
+        //-   img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/3512.png')
         
-        p Anti-Sentient spells used (on average): &nbsp;
-        p(style='margin-left: 40px;') 0.10 x &nbsp;
-          img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/spell/SummonerSmite.png')
+        //- p Anti-Sentient spells used (on average): &nbsp;
+        //- p(style='margin-left: 40px;') 0.10 x &nbsp;
+        //-   img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/spell/SummonerSmite.png')
         
         if scoreComments.passive.comment
           p Passive:
