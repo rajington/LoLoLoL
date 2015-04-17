@@ -32,10 +32,17 @@ html
               a(href='/champion?sort=asc', style='color: white; font-size: 32px;') View more heroes
                 span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
               
-            each champ in leastMinionsKilledChamps
-              div(class='col-md-4', style='position:relative; margin-bottom: 50px;')
+            each champ, index in leastMinionsKilledChamps
+              - var column = 'col-md-4'
+              - var style = ''
+              //- - var style = 'height: 450px;'
+              //- if index == 0
+              //-   column = 'col-md-4'
+              //-   style = ''
+
+              div(class='#{column}', style='position:relative; margin-bottom: 50px;')
                 a(href='/champion/#{champ.identifier}')
-                  img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.key}_0.jpg', style='cursor:pointer;')
+                  img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.key}_0.jpg', style='cursor:pointer; #{style}')
                 //- p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total Sentients killed:
                 //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
                 p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Sentients killed/game:
