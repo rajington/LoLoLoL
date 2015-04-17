@@ -1,6 +1,6 @@
 var _ = require('cloud/vendor/underscore');
 var scores = require('cloud/champ-score-comments');
-var tableDefaults = require('cloud/table-defaults')
+var metrics = require('cloud/metrics')
 // we should get this via a background job and config variable later
 var version = "5.7.2";
 var ignoredItems = [ 3256, 3257, 3361, 3362, 3363, 3364 ];
@@ -286,7 +286,7 @@ app.get('/data', function(req, res){
       champions: champions,
       items: items,
       regionTiers: regionTiers,
-      tableDefaults: tableDefaults
+      metrics: metrics
     });
   }, function(error){
     res.status(400).json({error: error});

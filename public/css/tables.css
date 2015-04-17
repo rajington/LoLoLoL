@@ -1,0 +1,8 @@
+td.totalSentientKillsPerGame {
+  font-weight: bold;
+}
+
+td.name img {
+  height: 28px;
+  width: auto;
+}
