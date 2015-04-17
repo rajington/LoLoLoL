@@ -33,14 +33,30 @@ html
                 span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
               
             each champ in leastMinionsKilledChamps
-              div(class='col-md-4', style='position:relative;')
+              div(class='col-md-4', style='position:relative; margin-bottom: 50px;')
                 a(href='/champion/#{champ.identifier}')
                   img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.key}_0.jpg', style='cursor:pointer;')
-                p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total Sentients killed:
+                //- p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total Sentients killed:
                 //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
                 p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Sentients killed/game:
                 p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled ? champ.minionsKilled.toFixed(1) : 0
-    
+            
+        div(class='row')
+          div(class='col-md-6')
+            div(class='row')
+              each item in leastMinionsKilledItems
+                div(class='col-md-2')
+                  img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/#{item.get("identifier")}.png')
+                
+          div(class='col-md-6')
+            div(class='row')
+              div(class='col-md-2')
+                img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/1001.png')
+              div(class='col-md-2')
+                img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/1001.png')
+              div(class='col-md-2')
+                img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/1001.png')
+
     div(style='background-color: #a94442; padding-bottom: 60px;')
       div(class='container')  
         div(class='row', style='margin-top: 30px;')
@@ -52,14 +68,30 @@ html
               a(href='/champion?sort=asc', style='color: white; font-size: 32px;') View more villians
                 span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
           each champ in mostMinionsKilledChamps
-            div(class='col-md-4', style='position:relative;')
+            div(class='col-md-4', style='position:relative; margin-bottom: 50px;')
               a(href='/champion/#{champ.identifier}')
                 img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.key}_0.jpg', style='cursor:pointer;')
-              p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total Sentients killed:
-              //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
-              p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Sentients killed/game:
+              p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Lane Sentients killed/game:
               p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled ? champ.minionsKilled.toFixed(1) : 0 
-      
+              //- p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total Sentients killed:
+              //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
+
+        div(class='row')
+          div(class='col-md-6')
+            div(class='row')
+              each item in mostMinionsKilledItems
+                div(class='col-md-2')
+                  img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/#{item.get("identifier")}.png')
+                
+          div(class='col-md-6')
+            div(class='row')
+              div(class='col-md-2')
+                img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/1001.png')
+              div(class='col-md-2')
+                img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/1001.png')
+              div(class='col-md-2')
+                img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/1001.png')
+
     div
       div(class='container-fluid')
         div(class='row')

@@ -19,20 +19,24 @@ app.get('/', function(req, res) {
 
   var mostKills = [];
   var leastKills = [];
+  var mostKillsItems = [];
 
   var RIOT_API_KEY;
 
   Parse.Config.get().then(function(config){
     RIOT_API_KEY = config.get('RIOT_API_KEY')
     return RIOT_API_KEY;
-  });
-
-  // TODO: definitely want to refactor these calls out and store some of this data locally
-  // in files if possible (though I'm not sure if that's going to soften the i/o blow)
-  var mostQuery = new Parse.Query("Champion");
-  mostQuery.descending("minionsKilled");
-  mostQuery.limit(3);
-  mostQuery.find().then(function(champions){
+  })
+  .then(function(){
+  	console.log('got RIOT_API_KEY')
+  	// TODO: definitely want to refactor these calls out and store some of this data locally
+	  // in files if possible (though I'm not sure if that's going to soften the i/o blow)
+	  var mostMostQuery = new Parse.Query("Champion");
+	  mostMostQuery.descending("minionsKilled");
+	  mostMostQuery.limit(3);
+	  return mostMostQuery.find()
+  })
+  .then(function(champions){
     var promises = [];
     _.each(champions, function(champ){
       promises.push(
@@ -57,14 +61,16 @@ app.get('/', function(req, res) {
       )
     });
     return Parse.Promise.when(promises);
-  });
-
-
-  var leastQuery = new Parse.Query("Champion");
-  leastQuery.ascending("minionsKilled");
-  leastQuery.limit(3);
-  leastQuery.find().then(function(champions){
-    var promises = [];
+  })
+  .then(function(){
+  	console.log('got least kills champs')
+  	var leastChampQuery = new Parse.Query("Champion");
+  	leastChampQuery.ascending("minionsKilled");
+  	leastChampQuery.limit(3);
+  	return leastChampQuery.find()
+  })
+  .then(function(champions){
+  	var promises = [];
     _.each(champions, function(champ){
       promises.push(
 
@@ -88,9 +94,25 @@ app.get('/', function(req, res) {
       )
     });
     return Parse.Promise.when(promises);
-  }).then(function(){
-    res.render('splash', { mostMinionsKilledChamps : mostKills, leastMinionsKilledChamps: leastKills });
-  });
+  })
+  .then(function(){
+  	var mostItemQuery = new Parse.Query("Item");
+	  mostItemQuery.descending("minionsKilled");
+	  mostItemQuery.limit(3);
+		return mostItemQuery.find()
+  })
+  .then(function(items){
+  	mostKillsItems = items;
+
+  	var leastItemQuery = new Parse.Query("Item");
+	  leastItemQuery.ascending("minionsKilled");
+	  leastItemQuery.limit(3);
+		return leastItemQuery.find()
+  })
+  .then(function(items){
+	  	res.render('splash', { mostMinionsKilledChamps : mostKills, leastMinionsKilledChamps: leastKills, mostMinionsKilledItems: mostKillsItems, leastMinionsKilledItems: items });
+	});
+  
 });
 
 app.get('/champion', function(req, res) {
