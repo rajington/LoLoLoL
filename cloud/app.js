@@ -235,7 +235,7 @@ app.get('/data', function(req, res){
 
     _.each(champions, function(champion){
       var championMetadata = _.findWhere(championsMetadata, {id: champion.identifier});
-      champion.name = championMetadata.name;
+      champion.champion = championMetadata.name;
       champion.image = championMetadata.image.full;
 
       champion.pickRate = champion.samples / totalSamples;
@@ -244,7 +244,7 @@ app.get('/data', function(req, res){
 
     _.each([champions, items, regionTiers], function(collection){
       _.each(collection, function(obj){
-        obj.totalSentientKills = obj.neutralMinionsKilled
+        obj.sentientKills = obj.neutralMinionsKilled
           + obj.minionsKilled
           + obj.dragonKills
           + obj.baronKills;
@@ -253,8 +253,14 @@ app.get('/data', function(req, res){
 
     _.each(items, function(item){
       var itemMetadata = _.findWhere(itemsMetadata, {id: item.identifier});
-      item.name = itemMetadata.name;
-      item.image = item.full;
+      item.item = itemMetadata.name;
+      item.image = itemMetadata.image.full;
+    });
+
+    _.each(regionTiers, function(regionTier){
+      var rt = regionTier.identifier.split('_');
+      regionTier.region = rt[0];
+      regionTier.tier = rt[1];
     });
 
     res.json({
