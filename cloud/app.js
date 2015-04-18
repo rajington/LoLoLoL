@@ -1,6 +1,5 @@
 var _ = require('cloud/vendor/underscore');
 var scores = require('cloud/champ-score-comments');
-var metrics = require('cloud/metrics');
 var getData = require('cloud/get-data');
 // we should get this via a background job and config variable later
 var version = "5.7.2";

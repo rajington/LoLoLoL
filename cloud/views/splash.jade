@@ -32,7 +32,7 @@ html
               | atmosphere of acceptance for our Sentient brothers and sisters. Click on the profiles to see more
               | URF Sentient-friendly stats or...
             p(class='text-center', style='margin-bottom: 30px;')
-              a(href='/champions', style='color: white; font-size: 32px;') View more heroes
+              a(href='/summary/champions', style='color: white; font-size: 32px;') View all the heroes and their stats
                 span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
               
             each champ, index in leastMinionsKilledChamps
@@ -58,6 +58,9 @@ html
               div(class="region-txt")
                 span(class="region-kills")= item.get('minionsKilled').toFixed(1) 
                 p sentients/game
+          p(class='text-center', style='margin-bottom: 30px;')
+            a(href='/summary/items', style='color: white; font-size: 32px;') View more items to buy
+              span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
         
         div(class='row item-region-background')
           each region in leastRegionKills
@@ -67,16 +70,19 @@ html
                 div(class="region-txt")
                   span(class="region-kills")= val.toFixed(1) 
                   p sentients/game
+          p(class='text-center', style='margin-bottom: 30px;')
+            a(href='/summary/regionTiers', style='color: white; font-size: 32px;') View more regions to move to
+              span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
 
     div(style='background-color: #000; padding-bottom: 60px;')
       div(class='container')  
         div(class='row', style='margin-top: 30px;')
           p(class='top-3-header text-center champ-type-title') URF's Sentient Killers
           p(class='champ-type-blurb') "Champions"? Not a chance. Unlike our aforementioned heroes,   
-              | these butchers needlessly slaughters innocent Sentients numbered in the hundreds 
+              | these butchers needlessly slaughter innocent Sentients numbered in the hundreds 
               | every game. Click on the profiles to view more disturbing URF stats or...
             p(class='text-center', style='margin-bottom: 30px;')
-              a(href='/champions', style='color: white; font-size: 32px;') View more villians
+              a(href='/summary/champions', style='color: white; font-size: 32px;') View all the villians
                 span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
           each champ in mostMinionsKilledChamps
             div(class='col-md-4', style='position:relative; margin-bottom: 50px;')
@@ -94,6 +100,9 @@ html
               div(class="region-txt")
                 span(class="region-kills")= item.get('minionsKilled').toFixed(1) 
                 p sentients/game
+          p(class='text-center', style='margin-bottom: 30px;')
+            a(href='/summary/items', style='color: white; font-size: 32px;') View more items to boycott
+              span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
                 
         div(class='row', style='background-color: #000;')
           each region in mostRegionKills
@@ -103,6 +112,9 @@ html
                 div(class="region-txt")
                   span(class="region-kills")= val.toFixed(1) 
                   p sentients/game
+          p(class='text-center', style='margin-bottom: 30px;')
+            a(href='/summary/regionTiers', style='color: white; font-size: 32px;') View more regions to move out of
+              span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
 
     div
       div(class='container-fluid')
