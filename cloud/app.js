@@ -270,10 +270,24 @@ app.get('/data', function(req, res){
 
     return Parse.Promise.when(promises);
   }).then(function(champions, items, regionTiers, championsMetadata, itemsMetadata){
+    var totalSamples = _.reduce(champions, function(memo, champion){ return memo + champion.samples; }, 0);
+
     _.each(champions, function(champion){
       var championMetadata = _.findWhere(championsMetadata, {id: champion.identifier});
       champion.name = championMetadata.name;
       champion.image = championMetadata.image.full;
+
+      champion.pickRate = champion.samples / totalSamples;
+      champion.banRate = champion.bans / totalSamples;
+    });
+
+    _.each([champions, items, regionTiers], function(collection){
+      _.each(collection, function(obj){
+        obj.totalSentientKills = obj.neutralMinionsKilled
+          + obj.minionsKilled
+          + obj.dragonKills
+          + obj.baronKills;
+      });
     });
 
     _.each(items, function(item){
