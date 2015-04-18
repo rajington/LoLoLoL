@@ -192,8 +192,8 @@ var scoreComments = {
       "id": "BrandBlaze.png"
     },
     "other": {
-      "comment": "",
-      "score": 0
+      "comment": "Only he can start forest fires!",
+      "score": -10
     },
     "spells": {
       "BrandFissure": {
@@ -255,7 +255,7 @@ var scoreComments = {
     },
     "spells": {
       "MissileBarrage": {
-        "comment": "",
+        "comment": "We demand disarmament!",
         "score": 0
       },
       "PhosphorusBomb": {
@@ -279,8 +279,8 @@ var scoreComments = {
       "id": "Braum_Passive.png"
     },
     "other": {
-      "comment": "",
-      "score": 0
+      "comment": "He lets us stand behind him!",
+      "score": 10
     },
     "spells": {
       "BraumW": {
@@ -308,8 +308,8 @@ var scoreComments = {
       "id": "Sejuani_Passive.png"
     },
     "other": {
-      "comment": "",
-      "score": 0
+      "comment": "She never thanks her ride!",
+      "score": -10
     },
     "spells": {
       "SejuaniArcticAssault": {
@@ -337,7 +337,7 @@ var scoreComments = {
       "id": "Tryndamere_Passive.png"
     },
     "other": {
-      "comment": "",
+      "comment": "When do we get weapons this size?",
       "score": 0
     },
     "spells": {
@@ -383,8 +383,8 @@ var scoreComments = {
         "score": 0
       },
       "MissFortuneRicochetShot": {
-        "comment": "",
-        "score": 0
+        "comment": "Two birds with one stone :(",
+        "score": -10
       }
     }
   },
@@ -395,7 +395,7 @@ var scoreComments = {
       "id": "YorickUnholyCovenant.png"
     },
     "other": {
-      "comment": "",
+      "comment": "Just to be clear, his ghouls are NOT with us",
       "score": 0
     },
     "spells": {
@@ -466,8 +466,8 @@ var scoreComments = {
         "score": 0
       },
       "SivirR": {
-        "comment": "",
-        "score": 0
+        "comment": "Yay! We get to run to our death faster!",
+        "score": 10
       },
       "SivirQ": {
         "comment": "",
@@ -477,8 +477,8 @@ var scoreComments = {
   },
   "Riven": {
     "passive": {
-      "comment": "",
-      "score": 0,
+      "comment": "Great for last-killing us isn't it?",
+      "score": -10,
       "id": "RivenRunicBlades.png"
     },
     "other": {
@@ -511,7 +511,7 @@ var scoreComments = {
       "id": "OriannaPassive.png"
     },
     "other": {
-      "comment": "",
+      "comment": "Wait, we're not sentient but SHE is?",
       "score": 0
     },
     "spells": {
@@ -549,8 +549,8 @@ var scoreComments = {
         "score": 0
       },
       "CannonBarrage": {
-        "comment": "",
-        "score": 0
+        "comment": "We thought we were safe when you backed to base",
+        "score": -10
       },
       "RaiseMorale": {
         "comment": "",
@@ -569,7 +569,7 @@ var scoreComments = {
       "id": "Malphite_GraniteShield.png"
     },
     "other": {
-      "comment": "",
+      "comment": "No matter who wins, WE WILL LOSE",
       "score": 0
     },
     "spells": {
