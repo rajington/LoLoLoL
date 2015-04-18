@@ -9,7 +9,7 @@ html
     script(src='https://code.jquery.com/jquery-1.11.1.min.js')
     script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
   body
-    div(style='height: 720px;', class='container')
+    div(style='height: 250px;', class='container')
       h1(class='text-center', style='margin-bottom: 30px;') People for the Ethical Treatment of Sentients
       
       div(class='center-block', style='max-width: 700px;')
@@ -29,7 +29,7 @@ html
               | atmosphere of acceptance for our Sentient brothers and sisters. Click on the profiles to see more
               | URF Sentient-friendly stats or...
             p(class='text-center', style='margin-bottom: 30px;')
-              a(href='/champion?sort=asc', style='color: white; font-size: 32px;') View more heroes
+              a(href='/champions', style='color: white; font-size: 32px;') View more heroes
                 span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
               
             each champ, index in leastMinionsKilledChamps
@@ -70,7 +70,7 @@ html
               | these butchers needlessly slaughters innocent Sentients numbered in the hundreds 
               | every game. Click on the profiles to view more disturbing URF stats or...
             p(class='text-center', style='margin-bottom: 30px;')
-              a(href='/champion?sort=asc', style='color: white; font-size: 32px;') View more villians
+              a(href='/champions', style='color: white; font-size: 32px;') View more villians
                 span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
           each champ in mostMinionsKilledChamps
             div(class='col-md-4', style='position:relative; margin-bottom: 50px;')

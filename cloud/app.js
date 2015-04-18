@@ -165,45 +165,6 @@ app.get('/', function(req, res) {
   
 });
 
-app.get('/champion', function(req, res) {
-
-  var sort = req.query.sort || 'asc';
-
-  var champions = [];
-  var champInfo = {};
-  var champInfoDebug = {};
-
-  var query = new Parse.Query("Champion");
-  if(sort == 'asc') {
-    query.ascending("minionsKilled");
-  } else {
-    query.descending("minionsKilled");
-  }
-  query.limit(300);
-  query.find().then(function(champs){
-    champions = champs;
-
-    return Parse.Cloud.httpRequest({
-      url: 'http://ddragon.leagueoflegends.com/cdn/' + version + '/data/en_US/champion.json',
-      success: function(resp) {
-        console.log('got champion.json');
-      },
-      error: function(resp) {
-        console.log('did not get champion json succssfully: ' + resp.status);
-      }
-    });
-
-  }).then(function(response){
-    _.each(response.data.data, function(value, key){
-      champInfo[value.key] = key;
-    });
-    champInfoDebug = response.text;
-  }).then(function(){
-    res.render('champions', { champions: champions, champInfo: champInfo, champInfoDebug:champInfoDebug, version: version });
-  });
-
-});
-
 app.get('/champion/:id', function(req, res) {
   var champId = parseInt(req.params.id, 10);
 
