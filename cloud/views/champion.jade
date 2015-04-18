@@ -13,28 +13,32 @@ html
         img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{staticData.key}_0.jpg')
       div(class='col-md-8 jumbotron', style='margin-top: 20px;')
         h4 Sentient Friendliness Score:
-        p(style='font-size:88px;') 80
+        p(style='font-size:88px; font-weight: bold;') 80
           span(class='text-success', style='margin-left: 20px; font-size: 32px;')
         
-        p(class='row') 
+        p(class='row text-danger') 
           span(class='col-md-10') Lane Sentients killed per match: &nbsp;
           span(class='col-md-2', style='font-size: 24px;')= champData.get('minionsKilled').toFixed(1)
         
-        p(class='row') 
+        p(class='row text-danger') 
           span(class='col-md-10') Camp Sentients killed per match: &nbsp;
           span(class='col-md-2', style='font-size: 24px;')= champData.get('neutralMinionsKilled').toFixed(1)
         
-        p(class='row') 
+        p(class='row text-danger') 
           span(class='col-md-10') Dragons killed per match: &nbsp;
           span(class='col-md-2', style='font-size: 24px;')= champData.get('dragonKills').toFixed(1)
         
-        p(class='row') 
+        p(class='row text-danger') 
           span(class='col-md-10') Barons killed per match: &nbsp;
           span(class='col-md-2', style='font-size: 24px;')= champData.get('baronKills').toFixed(1)
       
-        p(class='row')
+        p(class='row text-success')
           span(class='col-md-10') Inhibitors destroyed per match: &nbsp;
           span(class='col-md-2', style='font-size: 24px;')= champData.get('inhibitorKills').toFixed(1)
+
+        p(class='row text-success')
+          span(class='col-md-10') Total units healed: &nbsp;
+          span(class='col-md-2', style='font-size: 24px;')= champData.get('totalUnitsHealed').toFixed(1)
         
         if scoreComments.passive.comment
           p Passive:
