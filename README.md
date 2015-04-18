@@ -25,7 +25,7 @@ By integrating our data with datatables on the frontend, we did a lot of setup b
 Unfortunately URF ended too soon, and the timing made it tough for us to spend the time this project deserved.
 
 ### Map Reduce
-As we started exploring the database more we wanted to perform analysis that wasn't capable with a simple relational database let alone moving averages. We uploaded all 13GB of our persisted matches data to IBM's Cloudant to start using a MapReduce view, and were even taking advantage of the Chained MapReduce features of Cloudant!
+As we started exploring the database more we wanted to perform analysis that wasn't capable with a simple relational database let alone moving averages. We uploaded all [13GB of our persisted matches data](http://imgur.com/IiCN0ct.png) to IBM's Cloudant to start using a MapReduce view, and were even taking advantage of the Chained MapReduce features of Cloudant!
 
 ### Leaderboards
 Our original plan was to do a leaderboard based on match data beyond what other services do with just your ladder ranking. Leaderboards really lend themselves to using Redis as a backend (because of ZSCORE), but the free tier options on most Redis hosts didn't cut it and there wasn't enough and migrating to a free tier PaaS with Redis support like Heroku or Beanstalk.
