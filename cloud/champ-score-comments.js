@@ -2735,8 +2735,8 @@ var scoreComments = {
         "score": 0
       },
       "TriumphantRoar": {
-        "comment": "",
-        "score": 0
+        "comment": "We can understand why some religions worship cows. Alistar heals sentients more than any other champion at a whopping 57.6 units per game. You can't milk those, but you can milk this stat.",
+        "score": ''
       }
     }
   },
