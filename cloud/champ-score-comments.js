@@ -6,8 +6,8 @@ var scoreComments = {
       "id": "MonkeyKingStoneSkin.png"
     },
     "other": {
-      "comment": "",
-      "score": 0
+      "comment": "You would think someone who came from the jungle would be nicer to his old home! NOPE!",
+      "score": -15
     },
     "spells": {
       "MonkeyKingNimbus": {
@@ -35,8 +35,8 @@ var scoreComments = {
       "id": "Armsmaster_MasterOfArms.png"
     },
     "other": {
-      "comment": "",
-      "score": 0
+      "comment": "Even a lamp post hits hard when you're a minion!",
+      "score": -20
     },
     "spells": {
       "JaxLeapStrike": {
@@ -69,8 +69,8 @@ var scoreComments = {
     },
     "spells": {
       "JackInTheBox": {
-        "comment": "",
-        "score": 0
+        "comment": "This isn't fun to play with at all!",
+        "score": -10
       },
       "HallucinateFull": {
         "comment": "",
@@ -88,8 +88,8 @@ var scoreComments = {
   },
   "Warwick": {
     "passive": {
-      "comment": "",
-      "score": 0,
+      "comment": "When will WE get this level of sustain?",
+      "score": -10,
       "id": "Warwick_InnerHunger.png"
     },
     "other": {
@@ -117,7 +117,7 @@ var scoreComments = {
   },
   "Nidalee": {
     "passive": {
-      "comment": "",
+      "comment": "Jungle Sentients are already trapped! We don't need to be rooted too!",
       "score": 0,
       "id": "Nidalee_Passive.png"
     },
@@ -234,8 +234,8 @@ var scoreComments = {
         "score": 0
       },
       "DefensiveBallCurl": {
-        "comment": "",
-        "score": 0
+        "comment": "DEFENSIVE? Then why does it hurt so much!",
+        "score": -12
       },
       "PuncturingTaunt": {
         "comment": "",
@@ -429,8 +429,8 @@ var scoreComments = {
     },
     "spells": {
       "XerathArcaneBarrage2": {
-        "comment": "",
-        "score": 0
+        "comment": "They make us march in a line, how convenient for Xerath!",
+        "score": -10
       },
       "XerathLocusOfPower2": {
         "comment": "",
