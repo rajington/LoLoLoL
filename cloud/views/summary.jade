@@ -7,7 +7,7 @@ html
     link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
     link(rel='stylesheet', href='//cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.css')
     link(rel='stylesheet', href='//cdn.datatables.net/colvis/1.1.2/css/dataTables.colVis.css')
-    link(rel='stylesheet', href='css/tables.css')
+    link(rel='stylesheet', href='/css/summary.css')
     script(src='//code.jquery.com/jquery-1.11.1.min.js')
     script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
     script(src='//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js')
@@ -20,74 +20,76 @@ html
     div(class='container')
       table(class='table table-striped table-bordered')
   script(type='text/javascript')
+    // TODO: refactor this out to a separate file
     $(document).ready(function() {
-      $.getJSON( 'data', function( serverData ) {
-        var collection = window.location.hash.substr(1) || 'champions';
-        var displays = {};
-        displays['default'] = function(data, type, row){
-          return data.toFixed(2);
-        };
-        displays['percentage'] = function(data, type, row){
-          return (data*100).toFixed(2) + '%';
-        };
-        displays['k'] = function(data, type, row){
-          return (data/1000).toPrecision(3) + 'k';
-        };
-        displays['perThousandMatches'] = function(data, type, row){
-          return (data*1000).toFixed(3);
-        };
-        displays['title'] = function(data, type, row){
-          if(row.champion){
-            return "<a href='/champion/" + row.identifier + "'><img src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/champion/" + row.image + "'>" + data + "</a>";
-          } else if(row.item){
-            return "<img src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/" + row.image + "'>" + data + "</a>";
-          } else if(row.regionTier){
-            return "<img src='images/" + data[0] + ".png'>" 
-              + "<img src='images/" + data[1] + ".png'>" 
-              + data[0].toUpperCase() + data[1].toUpperCase();
-          }
-        };
-
-        var metrics = _.filter(serverData.metrics, function(metric){
-          return _.contains(metric.collections, collection);
-        });
+      var metrics = !{JSON.stringify(metrics)};
+      var collection = !{JSON.stringify(collection)};
+      var name = "#{name}";
+      
+      var displays = {};
+      displays['default'] = function(data, type, row){
+        return data.toFixed(2);
+      };
+      displays['percentage'] = function(data, type, row){
+        return (data*100).toFixed(2) + '%';
+      };
+      displays['k'] = function(data, type, row){
+        return (data/1000).toPrecision(3) + 'k';
+      };
+      displays['perThousandMatches'] = function(data, type, row){
+        return (data*1000).toFixed(3);
+      };
+      displays['title'] = function(data, type, row){
+        if(row.champion){
+          return "<a href='/champion/" + row.identifier + "'><img src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/champion/" + row.image + "'>" + data + "</a>";
+        } else if(row.item){
+          return "<img src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/" + row.image + "'>" + data + "</a>";
+        } else if(row.regionTier){
+          return "<img src='/images/" + data[0] + ".png'>" 
+            + "<img src='/images/" + data[1] + ".png'>" 
+            + data[0].toUpperCase() + data[1].toUpperCase();
+        }
+      };
+  
+      var metrics = _.filter(metrics, function(metric){
+        return metric[name];
+      });
+      
+      var columns = _.map(metrics, function(metric){
+        var dtColumn = {};
+        dtColumn.data = metric.key;
         
-        var columns = _.map(metrics, function(metric){
-          var dtColumn = {};
-          dtColumn.data = metric.key;
-          
-          if(!metric.important){
-            dtColumn.visible = false;
-          }
-          if(metric.display){
-            dtColumn.render = {
-              display: displays[metric.display]
-            };
-            dtColumn.className = metric.display;
-          } else {
-            dtColumn.render = {
-              display: displays['default']
-            };
-          }
-          
-          // get the title from the database or the humanized version of the key
-          dtColumn.title = metric.title || s(metric.key).humanize().titleize().value();
-          if(_.isUndefined(metric.unit)){
-            metric.unit = 'per match';
-          }
-          if(metric.unit){
-            dtColumn.title += ' (' + metric.unit + ')';
-          }
-
-          return dtColumn;
-        });
+        if(!metric.important){
+          dtColumn.visible = false;
+        }
+        if(metric.display){
+          dtColumn.render = {
+            display: displays[metric.display]
+          };
+          dtColumn.className = metric.display;
+        } else {
+          dtColumn.render = {
+            display: displays['default']
+          };
+        }
         
-        $('table').dataTable({
-          dom: 'C<"clear">lfrtip',
-          order: [[1, 'desc']],
-          deferRender: true,
-          data: serverData[collection],
-          columns: columns
-        });
+        // get the title from the database or the humanized version of the key
+        dtColumn.title = metric.title || s(metric.key).humanize().titleize().value();
+        if(_.isUndefined(metric.unit)){
+          metric.unit = 'per match';
+        }
+        if(metric.unit){
+          dtColumn.title += ' (' + metric.unit + ')';
+        }
+    
+        return dtColumn;
+      });
+      
+      $('table').dataTable({
+        dom: 'C<"clear">lfrtip',
+        order: [[1, 'desc']],
+        deferRender: true,
+        data: collection,
+        columns: columns
       });
     });

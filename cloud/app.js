@@ -1,6 +1,7 @@
 var _ = require('cloud/vendor/underscore');
 var scores = require('cloud/champ-score-comments');
-var metrics = require('cloud/metrics')
+var metrics = require('cloud/metrics');
+var getData = require('cloud/get-data');
 // we should get this via a background job and config variable later
 var version = "5.7.2";
 var ignoredItems = [ 3256, 3257, 3361, 3362, 3363, 3364 ];
@@ -200,83 +201,28 @@ app.get('/champion/:id', function(req, res) {
 
 });
 
-app.get('/data', function(req, res){
-  Parse.Config.get().then(function(config){
-    return config.get('RIOT_API_KEY');
-  }).then(function(RIOT_API_KEY){
-    var promises = _.map(['Champion', 'Item', 'RegionTier'], function(collection){
-      var query = new Parse.Query(collection);
-      query.limit(1000); // maximum limit
-      return query.collection().fetch().then(function(results){
-        return results.toJSON();
-      });
-    });
-
-    _.each({
-      champion: {
-        champData: 'image'
-      },
-      item: {
-        itemListData: 'image'
-      }
-    }, function(params, collection){
-      params = _.extend(params, {api_key: RIOT_API_KEY});
-      promises.push(Parse.Cloud.httpRequest({
-        url: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/' + collection,
-        params: params
-      }).then(function(response){
-        return _.toArray(response.data.data);
-      }));
-    });
-
-    return Parse.Promise.when(promises);
-  }).then(function(champions, items, regionTiers, championsMetadata, itemsMetadata){
-    var totalSamples = _.reduce(champions, function(memo, champion){ return memo + champion.samples; }, 0);
-
-    _.each(champions, function(champion){
-      var championMetadata = _.findWhere(championsMetadata, {id: champion.identifier});
-      champion.champion = championMetadata.name;
-      champion.image = championMetadata.image.full;
-
-      champion.pickRate = champion.samples / totalSamples;
-      champion.banRate = champion.bans / totalSamples;
-    });
-
-    _.each([champions, items, regionTiers], function(collection){
-      _.each(collection, function(obj){
-        obj.sentientKills = obj.neutralMinionsKilled
-          + obj.minionsKilled
-          + obj.dragonKills
-          + obj.baronKills;
-      });
-    });
-
-    _.each(items, function(item){
-      var itemMetadata = _.findWhere(itemsMetadata, {id: item.identifier});
-      item.item = itemMetadata.name;
-      item.image = itemMetadata.image.full;
-    });
-
-    _.each(regionTiers, function(regionTier){
-      regionTier.regionTier = regionTier.identifier.toLowerCase().split('_');
-    });
-
-    res.json({
-      champions: champions,
-      items: items,
-      regionTiers: regionTiers,
-      metrics: metrics
-    });
+app.get('/summary/:collection', function(req, res) {
+  var collectionName = req.params.collection;
+  Parse.Promise.when([getData('metrics'), getData(collectionName)]).then(function(metrics, collection){
+    res.render('summary', { metrics: metrics, collection: collection, name: collectionName });
   }, function(error){
-    res.status(400).json({error: error});
+    res.json({error: error});
   });
 });
 
-app.get('/champions', function(req, res) {
-  res.render('table');
+app.get('/data/:collection.json', function(req, res) {
+  var collection = req.params.collection;
+  getData(collection).then(function(data){
+    res.json({data: data});
+  }, function(error){
+    res.json({error: error});
+  })
 });
 
-// // TODO: view caching should be enabled!
+//
+// SUMMONER NAME ADDING CODE
+//
+
 // app.get('/tables', function(req, res) {
 //   Parse.Cloud.useMasterKey();
 //   var tables = [
@@ -319,57 +265,45 @@ app.get('/champions', function(req, res) {
 //   });
 // });
 
-app.post('/summoners', function(req, res) {
-  var region = req.body.region;
-  var name = req.body.name;
-  var summoner;
-  Parse.Config.get().then(function(config){
-    return config.get('RIOT_API_KEY');
-  }).then(function(RIOT_API_KEY){
-    return Parse.Cloud.httpRequest({
-      url: 'https://'+region+'.api.pvp.net/api/lol/'+region+'/v1.4/summoner/by-name/'+name,
-      params: {
-        api_key: RIOT_API_KEY
-      }
-    });
-  }).then(function(response){
-    Parse.Cloud.useMasterKey();
-    summoner = response.data[name];
-    var query = new Parse.Query("Summoner");
-    query.equalTo('identifier', summoner.id);
-    return query.first();
-  }).then(function(result){
-    if(_.isUndefined(result)){
-      var Summoner = Parse.Object.extend("Summoner");
-      var newSummoner = new Summoner({
-        identifier: summoner.id,
-        region: region,
-        name: summoner.name,
-        profileIconId: summoner.profileIconId
-      });
-      return newSummoner.save();
-    }
-  }).then(function(newSummoner){
-    if(newSummoner){
-      res.end();
-    } else {
-      res.status(409).json({error: 'already exists'});
-    }
-  }, function(error){
-    res.status(404).json({error: 'name not found'});
-  });
-});
-
-// Example reading from the request query string of an HTTP get request.
-// app.get('/test', function(req, res) {
-  // GET http://example.parseapp.com/test?message=hello
-//   res.send(req.query.message);
-// });
-
-// // Example reading from the request body of an HTTP post request.
-// app.post('/test', function(req, res) {
-//   // POST http://example.parseapp.com/test (with request body "message=hello")
-//   res.send(req.body.message);
+// app.post('/summoners', function(req, res) {
+//   var region = req.body.region;
+//   var name = req.body.name;
+//   var summoner;
+//   Parse.Config.get().then(function(config){
+//     return config.get('RIOT_API_KEY');
+//   }).then(function(RIOT_API_KEY){
+//     return Parse.Cloud.httpRequest({
+//       url: 'https://'+region+'.api.pvp.net/api/lol/'+region+'/v1.4/summoner/by-name/'+name,
+//       params: {
+//         api_key: RIOT_API_KEY
+//       }
+//     });
+//   }).then(function(response){
+//     Parse.Cloud.useMasterKey();
+//     summoner = response.data[name];
+//     var query = new Parse.Query("Summoner");
+//     query.equalTo('identifier', summoner.id);
+//     return query.first();
+//   }).then(function(result){
+//     if(_.isUndefined(result)){
+//       var Summoner = Parse.Object.extend("Summoner");
+//       var newSummoner = new Summoner({
+//         identifier: summoner.id,
+//         region: region,
+//         name: summoner.name,
+//         profileIconId: summoner.profileIconId
+//       });
+//       return newSummoner.save();
+//     }
+//   }).then(function(newSummoner){
+//     if(newSummoner){
+//       res.end();
+//     } else {
+//       res.status(409).json({error: 'already exists'});
+//     }
+//   }, function(error){
+//     res.status(404).json({error: 'name not found'});
+//   });
 // });
 
 // Attach the Express app to Cloud Code.
