@@ -22,35 +22,57 @@ html
   script(type='text/javascript')
     $(document).ready(function() {
       $.getJSON( 'data', function( serverData ) {
-        var renderers = {};
-        renderers['perGame'] = function(data){
-          return data.toFixed(2)+'/game';
-        }
-        renderers['totalSentientKillsPerGame'] = function(data, type, row){
-          return renderers.perGame(row.neutralMinionsKilled + row.minionsKilled + row.dragonKills + row.baronKills);
-        }
-        renderers['name'] = function(data, type, row){
-          return "<img src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/champion/" + row.image + "'>" + data;
-        }
+        var displays = {};
+        displays['default'] = function(data, type, row){
+          return data.toFixed(2);
+        };
+        displays['percentage'] = function(data, type, row){
+          return (data*100).toFixed(2) + '%';
+        };
+        displays['k'] = function(data, type, row){
+          return (data/1000).toPrecision(3) + 'k';
+        };
+        displays['perThousandMatches'] = function(data, type, row){
+          return (data*1000).toFixed(3);
+        };
+        displays['title'] = function(data, type, row){
+          return "<a href='/champion/" + row.identifier + "'><img src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/champion/" + row.image + "'>" + data + "</a>";
+        };
 
         var columns = _.map(serverData.metrics, function(metric){
           var dtColumn = {};
           dtColumn.data = metric.key;
-
-          // get the title from the database or the humanized version of the key
-          dtColumn.title = metric.title || s(metric.key).humanize().titleize().value();
+          
           if(!metric.important){
             dtColumn.visible = false;
           }
-          if(metric.type){
-            dtColumn.render = renderers[metric.type];
-            dtColumn.className = metric.type;
+          if(metric.display){
+            dtColumn.render = {
+              display: displays[metric.display]
+            };
+            dtColumn.className = metric.display;
+          } else {
+            dtColumn.render = {
+              display: displays['default']
+            };
           }
+          
+          // get the title from the database or the humanized version of the key
+          dtColumn.title = metric.title || s(metric.key).humanize().titleize().value();
+          if(_.isUndefined(metric.unit)){
+            metric.unit = 'per match';
+          }
+          if(metric.unit){
+            dtColumn.title += ' (' + metric.unit + ')';
+          }
+
           return dtColumn;
         });
+        
+        //- console.log(columns);
 
-        console.log(columns);
         $('table').dataTable({
+          dom: 'C<"clear">lfrtip',
           order: [[1, 'desc']],
           deferRender: true,
           data: serverData.champions,

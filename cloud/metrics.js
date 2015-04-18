@@ -1,219 +1,283 @@
 module.exports = exports = metrics = [
   {
-    key: "name",
-    type: "name",
-    source: "static",
+    key: "champion",
+    derived: true,
+    display: "title",
     important: true,
+    unit: false,
     collections: ["champions"]
   },
+  // {
+  //   key: "item",
+  //   derived: true,
+  //   display: "title",
+  //   important: true,
+  //   unit: false,
+  //   collections: ["items"]
+  // },
   {
-    key: "minionsKilled",
-    title: "Total Sentient Kills",
-    type: "totalSentientKillsPerGame",
+    key: "sentientKills",
     derived: true,
     important: true,
+    unit: 'total Per Match',
     collections: ["champions"]
-  },
-  {
-  	key: "champLevel",
-  	collections: ["champions"]
-  },
-  {
-  	key: "samples",
-  	collections: ["champions"]
-  },
-  {
-  	key: "bans",
-  	collections: ["champions"]
-  },
-  {
-  	key: "bans",
-    title: "Ban Rate",
-    type: "percentage",
-    derived: true,
-  	collections: ["champions"]
-  },
-  {
-  	key: "winner",
-  	collections: ["champions"]
-  },
-  {
-  	key: "kills",
-  	collections: ["champions"]
-  },
-  {
-  	key: "deaths",
-  	collections: ["champions"]
-  },
-  {
-  	key: "assists",
-  	collections: ["champions"]
-  },
-  {
-  	key: "killingSprees",
-  	collections: ["champions"]
-  },
-  {
-  	key: "largestKillingSpree",
-  	collections: ["champions"]
-  },
-  {
-  	key: "pentaKills",
-  	collections: ["champions"]
-  },
-  {
-  	key: "largestMultiKill",
-  	collections: ["champions"]
-  },
-  {
-  	key: "wardsPlaced",
-  	collections: ["champions"]
-  },
-  {
-  	key: "wardsKilled",
-  	collections: ["champions"]
-  },
-  {
-  	key: "goldSpent",
-  	collections: ["champions"]
-  },
-  {
-  	key: "goldEarned",
-  	collections: ["champions"]
-  },
-  {
-  	key: "magicDamageDealt",
-  	collections: ["champions"]
-  },
-  {
-  	key: "magicDamageDealtToChampions",
-  	collections: ["champions"]
-  },
-  {
-  	key: "physicalDamageDealt",
-  	collections: ["champions"]
-  },
-  {
-  	key: "physicalDamageDealtToChampions",
-  	collections: ["champions"]
-  },
-  {
-  	key: "largestCriticalStrike",
-  	collections: ["champions"]
-  },
-  {
-  	key: "trueDamageDealt",
-  	collections: ["champions"]
-  },
-  {
-  	key: "trueDamageDealtToChampions",
-  	collections: ["champions"]
-  },
-  {
-  	key: "totalDamageDealt",
-  	collections: ["champions"]
-  },
-  {
-  	key: "totalDamageDealtToChampions",
-  	collections: ["champions"]
-  },
-  {
-  	key: "totalTimeCrowdControlDealt",
-  	collections: ["champions"]
-  },
-  {
-  	key: "magicDamageTaken",
-  	collections: ["champions"]
-  },
-  {
-  	key: "physicalDamageTaken",
-  	collections: ["champions"]
-  },
-  {
-  	key: "trueDamageTaken",
-  	collections: ["champions"]
-  },
-  {
-  	key: "totalDamageTaken",
-  	collections: ["champions"]
-  },
-  {
-  	key: "totalHeal",
-  	collections: ["champions"]
-  },
-  {
-  	key: "totalUnitsHealed",
-  	collections: ["champions"]
   },
   {
   	key: "minionsKilled",
     title: "Lane Sentient Kills",
-    type: "perGame",
     important: true,
   	collections: ["champions"]
   },
   {
   	key: "neutralMinionsKilled",
     title: "Jungle Sentient Kills",
-    type: "perGame",
     important: true,
   	collections: ["champions"]
   },
   {
   	key: "baronKills",
     important: true,
-    type: "perGame",
-  	collections: ["champions"]
+    collections: ["champions"]
   },
   {
   	key: "dragonKills",
     important: true,
-    type: "perGame",
-  	collections: ["champions"]
-  },
-  {
-  	key: "neutralMinionsKilledEnemyJungle",
-  	collections: ["champions"]
+    collections: ["champions"]
   },
   {
   	key: "neutralMinionsKilledTeamJungle",
-  	collections: ["champions"]
+    title: "Team's Jungle Sentient Kills",
+    collections: ["champions"]
+  },
+  {
+  	key: "neutralMinionsKilledEnemyJungle",
+    title: "Enemy's Jungle Sentient Kills",
+    collections: ["champions"]
   },
   {
   	key: "towerKills",
-  	collections: ["champions"]
+    collections: ["champions"]
   },
   {
   	key: "inhibitorKills",
-  	collections: ["champions"]
+    collections: ["champions"]
   },
   {
   	key: "firstBaron",
+    title: 'First Baron Secured',
+    display: 'percentage',
+    unit: "%",
   	collections: ["champions"]
   },
   {
   	key: "firstBloodKill",
+    title: 'First Blood Killed',
+    display: 'percentage',
+    unit: "%",
   	collections: ["champions"]
   },
   {
   	key: "firstDragon",
-  	collections: ["champions"]
-  },
-  {
-  	key: "firstInhibitorAssist",
+    title: 'First Dragon Secured',
+    display: 'percentage',
+    unit: "%",
   	collections: ["champions"]
   },
   {
   	key: "firstInhibitorKill",
+    title: 'Killed First Inhibitor',
+    display: 'percentage',
+    unit: "%",
+  	collections: ["champions"]
+  },
+  {
+  	key: "firstInhibitorAssist",
+    title: 'Assisted Killing First Inhibitor',
+    display: 'percentage',
+    unit: "%",
   	collections: ["champions"]
   },
   {
   	key: "firstTowerAssist",
+    title: 'Assisted Killing First Tower',
+    display: 'percentage',
+    unit: "%",
   	collections: ["champions"]
   },
   {
   	key: "firstTowerKill",
+    title: 'Killed First Tower',
+    display: 'percentage',
+    unit: "%",
   	collections: ["champions"]
   },
-
+  {
+  	key: "champLevel",
+    title: 'Champion Level',
+    unit: 'average',
+  	collections: ["champions"]
+  },
+  {
+  	key: "samples",
+    title: "Picks",
+    display: 'k',
+    unit: 'total',
+  	collections: ["champions"]
+  },
+  {
+  	key: "pickRate",
+    derived: true,
+    display: 'percentage',
+    unit: "%",
+  	collections: ["champions"]
+  },
+  {
+  	key: "bans",
+    display: 'k',
+    unit: 'total',
+  	collections: ["champions"]
+  },
+  {
+  	key: "banRate",
+    derived: true,
+    display: 'percentage',
+    unit: "%",
+  	collections: ["champions"]
+  },
+  {
+  	key: "winner",
+    title: 'Win Rate',
+    display: 'percentage',
+    unit: "%",
+  	collections: ["champions"]
+  },
+  {
+  	key: "kills",
+    collections: ["champions"]
+  },
+  {
+  	key: "deaths",
+    collections: ["champions"]
+  },
+  {
+  	key: "assists",
+    collections: ["champions"]
+  },
+  {
+  	key: "killingSprees",
+    collections: ["champions"]
+  },
+  {
+  	key: "largestKillingSpree",
+    unit: 'average',
+  	collections: ["champions"]
+  },
+  {
+  	key: "pentaKills",
+    display: 'perThousandMatches',
+    unit: 'per 1000 matches',
+    collections: ["champions"]
+  },
+  {
+  	key: "largestMultiKill",
+    unit: 'average',
+  	collections: ["champions"]
+  },
+  {
+  	key: "wardsPlaced",
+    collections: ["champions"]
+  },
+  {
+  	key: "wardsKilled",
+    collections: ["champions"]
+  },
+  {
+  	key: "goldSpent",
+    display: 'k',
+    collections: ["champions"]
+  },
+  {
+  	key: "goldEarned",
+    display: 'k',
+    collections: ["champions"]
+  },
+  {
+  	key: "magicDamageDealt",
+    display: 'k',
+    collections: ["champions"]
+  },
+  {
+  	key: "magicDamageDealtToChampions",
+    display: 'k',
+    collections: ["champions"]
+  },
+  {
+  	key: "physicalDamageDealt",
+    display: 'k',
+    collections: ["champions"]
+  },
+  {
+  	key: "physicalDamageDealtToChampions",
+    display: 'k',
+    collections: ["champions"]
+  },
+  {
+  	key: "largestCriticalStrike",
+    unit: 'average',
+    collections: ["champions"]
+  },
+  {
+  	key: "trueDamageDealt",
+    display: 'k',
+    collections: ["champions"]
+  },
+  {
+  	key: "trueDamageDealtToChampions",
+    display: 'k',
+    collections: ["champions"]
+  },
+  {
+  	key: "totalDamageDealt",
+    display: 'k',
+    collections: ["champions"]
+  },
+  {
+  	key: "totalDamageDealtToChampions",
+    display: 'k',
+  	collections: ["champions"]
+  },
+  {
+  	key: "totalTimeCrowdControlDealt",
+    display: 'k',
+  	collections: ["champions"]
+  },
+  {
+  	key: "magicDamageTaken",
+    display: 'k',
+  	collections: ["champions"]
+  },
+  {
+  	key: "physicalDamageTaken",
+    display: 'k',
+  	collections: ["champions"]
+  },
+  {
+  	key: "trueDamageTaken",
+    display: 'k',
+  	collections: ["champions"]
+  },
+  {
+  	key: "totalDamageTaken",
+    display: 'k',
+  	collections: ["champions"]
+  },
+  {
+  	key: "totalHeal",
+    display: 'k',
+  	collections: ["champions"]
+  },
+  {
+  	key: "totalUnitsHealed",
+  	collections: ["champions"]
+  }
 ];

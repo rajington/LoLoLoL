@@ -1,8 +1,8 @@
-td.totalSentientKillsPerGame {
+td.sentientKills {
   font-weight: bold;
 }
 
-td.name img {
+td img {
   height: 28px;
   width: auto;
 }
