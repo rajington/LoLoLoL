@@ -46,7 +46,7 @@
     font-size: 40px;
   }
   .baron-header {
-    right: -175px;
+    right: -185px;
   }
   .fighting {
     position: absolute; top: 30px; left: 90px; color: white; font-size: 50px;
@@ -79,7 +79,7 @@
     font-size: 50px;
   }
   .baron-header {
-    right: -100px;
+    right: -120px;
   }
   .fighting {
     position: absolute; top: 30px; left: 90px; color: white; font-size: 50px;
@@ -112,7 +112,7 @@
     font-size: 54px;
   }
   .baron-header {
-    right: 75px;
+    right: 50px;
   }
   .fighting {
     position: absolute; top: 30px; left: 90px; color: white; font-size: 50px;
@@ -226,6 +226,6 @@
 
 .baron-header {
   position: absolute;
-  top: 0px;
-  width: 300px;
+  bottom: 0px;
+  width: 275px;
 }
