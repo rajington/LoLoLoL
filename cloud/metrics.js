@@ -1,283 +1,292 @@
 module.exports = exports = metrics = [
   {
-    key: "champion",
+    key: 'champion',
     derived: true,
-    display: "title",
+    display: 'title',
     important: true,
     unit: false,
-    collections: ["champions"]
+    collections: ['champions']
   },
-  // {
-  //   key: "item",
-  //   derived: true,
-  //   display: "title",
-  //   important: true,
-  //   unit: false,
-  //   collections: ["items"]
-  // },
   {
-    key: "sentientKills",
+    key: 'item',
+    derived: true,
+    display: 'title',
+    important: true,
+    unit: false,
+    collections: ['items']
+  },
+  {
+    key: 'regionTier',
+    title: 'Region/Tier',
+    derived: true,
+    display: 'title',
+    important: true,
+    unit: false,
+    collections: ['regionTiers']
+  },
+  {
+    key: 'sentientKills',
     derived: true,
     important: true,
     unit: 'total Per Match',
-    collections: ["champions"]
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "minionsKilled",
-    title: "Lane Sentient Kills",
+  	key: 'minionsKilled',
+    title: 'Lane Sentient Kills',
     important: true,
-  	collections: ["champions"]
+  	collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "neutralMinionsKilled",
-    title: "Jungle Sentient Kills",
+  	key: 'neutralMinionsKilled',
+    title: 'Jungle Sentient Kills',
     important: true,
-  	collections: ["champions"]
+  	collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "baronKills",
+  	key: 'baronKills',
     important: true,
-    collections: ["champions"]
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "dragonKills",
+  	key: 'dragonKills',
     important: true,
-    collections: ["champions"]
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "neutralMinionsKilledTeamJungle",
-    title: "Team's Jungle Sentient Kills",
-    collections: ["champions"]
+  	key: 'neutralMinionsKilledTeamJungle',
+    title: 'Team\'s Jungle Sentient Kills',
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "neutralMinionsKilledEnemyJungle",
-    title: "Enemy's Jungle Sentient Kills",
-    collections: ["champions"]
+  	key: 'neutralMinionsKilledEnemyJungle',
+    title: 'Enemy\'s Jungle Sentient Kills',
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "towerKills",
-    collections: ["champions"]
+  	key: 'towerKills',
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "inhibitorKills",
-    collections: ["champions"]
+  	key: 'inhibitorKills',
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "firstBaron",
+  	key: 'firstBaron',
     title: 'First Baron Secured',
     display: 'percentage',
-    unit: "%",
-  	collections: ["champions"]
+    unit: '%',
+  	collections: ['champions']
   },
   {
-  	key: "firstBloodKill",
+  	key: 'firstBloodKill',
     title: 'First Blood Killed',
     display: 'percentage',
-    unit: "%",
-  	collections: ["champions"]
+    unit: '%',
+  	collections: ['champions']
   },
   {
-  	key: "firstDragon",
+  	key: 'firstDragon',
     title: 'First Dragon Secured',
     display: 'percentage',
-    unit: "%",
-  	collections: ["champions"]
+    unit: '%',
+  	collections: ['champions']
   },
   {
-  	key: "firstInhibitorKill",
+  	key: 'firstInhibitorKill',
     title: 'Killed First Inhibitor',
     display: 'percentage',
-    unit: "%",
-  	collections: ["champions"]
+    unit: '%',
+  	collections: ['champions']
   },
   {
-  	key: "firstInhibitorAssist",
+  	key: 'firstInhibitorAssist',
     title: 'Assisted Killing First Inhibitor',
     display: 'percentage',
-    unit: "%",
-  	collections: ["champions"]
+    unit: '%',
+  	collections: ['champions']
   },
   {
-  	key: "firstTowerAssist",
+  	key: 'firstTowerAssist',
     title: 'Assisted Killing First Tower',
     display: 'percentage',
-    unit: "%",
-  	collections: ["champions"]
+    unit: '%',
+  	collections: ['champions']
   },
   {
-  	key: "firstTowerKill",
+  	key: 'firstTowerKill',
     title: 'Killed First Tower',
     display: 'percentage',
-    unit: "%",
-  	collections: ["champions"]
+    unit: '%',
+  	collections: ['champions']
   },
   {
-  	key: "champLevel",
+  	key: 'champLevel',
     title: 'Champion Level',
     unit: 'average',
-  	collections: ["champions"]
+  	collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "samples",
-    title: "Picks",
+  	key: 'samples',
+    title: 'Picks',
     display: 'k',
     unit: 'total',
-  	collections: ["champions"]
+  	collections: ['champions']
   },
   {
-  	key: "pickRate",
+  	key: 'pickRate',
     derived: true,
     display: 'percentage',
-    unit: "%",
-  	collections: ["champions"]
+    unit: '%',
+  	collections: ['champions']
   },
   {
-  	key: "bans",
+  	key: 'bans',
     display: 'k',
     unit: 'total',
-  	collections: ["champions"]
+  	collections: ['champions']
   },
   {
-  	key: "banRate",
+  	key: 'banRate',
     derived: true,
     display: 'percentage',
-    unit: "%",
-  	collections: ["champions"]
+    unit: '%',
+  	collections: ['champions']
   },
   {
-  	key: "winner",
+  	key: 'winner',
     title: 'Win Rate',
     display: 'percentage',
-    unit: "%",
-  	collections: ["champions"]
+    unit: '%',
+  	collections: ['champions', 'items']
   },
   {
-  	key: "kills",
-    collections: ["champions"]
+  	key: 'kills',
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "deaths",
-    collections: ["champions"]
+  	key: 'deaths',
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "assists",
-    collections: ["champions"]
+  	key: 'assists',
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "killingSprees",
-    collections: ["champions"]
+  	key: 'killingSprees',
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "largestKillingSpree",
+  	key: 'largestKillingSpree',
     unit: 'average',
-  	collections: ["champions"]
+  	collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "pentaKills",
+  	key: 'pentaKills',
     display: 'perThousandMatches',
     unit: 'per 1000 matches',
-    collections: ["champions"]
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "largestMultiKill",
+  	key: 'largestMultiKill',
     unit: 'average',
-  	collections: ["champions"]
+  	collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "wardsPlaced",
-    collections: ["champions"]
+  	key: 'wardsPlaced',
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "wardsKilled",
-    collections: ["champions"]
+  	key: 'wardsKilled',
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "goldSpent",
+  	key: 'goldSpent',
     display: 'k',
-    collections: ["champions"]
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "goldEarned",
+  	key: 'goldEarned',
     display: 'k',
-    collections: ["champions"]
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "magicDamageDealt",
+  	key: 'magicDamageDealt',
     display: 'k',
-    collections: ["champions"]
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "magicDamageDealtToChampions",
+  	key: 'magicDamageDealtToChampions',
     display: 'k',
-    collections: ["champions"]
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "physicalDamageDealt",
+  	key: 'physicalDamageDealt',
     display: 'k',
-    collections: ["champions"]
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "physicalDamageDealtToChampions",
+  	key: 'physicalDamageDealtToChampions',
     display: 'k',
-    collections: ["champions"]
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "largestCriticalStrike",
+  	key: 'largestCriticalStrike',
     unit: 'average',
-    collections: ["champions"]
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "trueDamageDealt",
+  	key: 'trueDamageDealt',
     display: 'k',
-    collections: ["champions"]
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "trueDamageDealtToChampions",
+  	key: 'trueDamageDealtToChampions',
     display: 'k',
-    collections: ["champions"]
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "totalDamageDealt",
+  	key: 'totalDamageDealt',
     display: 'k',
-    collections: ["champions"]
+    collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "totalDamageDealtToChampions",
+  	key: 'totalDamageDealtToChampions',
     display: 'k',
-  	collections: ["champions"]
+  	collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "totalTimeCrowdControlDealt",
+  	key: 'totalTimeCrowdControlDealt',
     display: 'k',
-  	collections: ["champions"]
+  	collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "magicDamageTaken",
+  	key: 'magicDamageTaken',
     display: 'k',
-  	collections: ["champions"]
+  	collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "physicalDamageTaken",
+  	key: 'physicalDamageTaken',
     display: 'k',
-  	collections: ["champions"]
+  	collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "trueDamageTaken",
+  	key: 'trueDamageTaken',
     display: 'k',
-  	collections: ["champions"]
+  	collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "totalDamageTaken",
+  	key: 'totalDamageTaken',
     display: 'k',
-  	collections: ["champions"]
+  	collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "totalHeal",
+  	key: 'totalHeal',
     display: 'k',
-  	collections: ["champions"]
+  	collections: ['champions', 'items', 'regionTiers']
   },
   {
-  	key: "totalUnitsHealed",
-  	collections: ["champions"]
+  	key: 'totalUnitsHealed',
+  	collections: ['champions', 'items', 'regionTiers']
   }
 ];
