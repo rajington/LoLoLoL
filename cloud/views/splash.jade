@@ -117,35 +117,33 @@ html
               span(class='glyphicon glyphicon-chevron-right', style='vertical-align: center;') 
 
     div
-      div(class='container-fluid')
+      div(class='container')
         div(class='row')
-          div(id='main-carousel', class='carousel slide center-block')
+          h1 Sentient News Feed
+        div(class='row')
+          div(id='main-carousel', class='carousel slide center-block', style='height: 500px;')
             ol(class='carousel-indicators')
               li(data-target='#main-carousel', data-slide-to='0', class='active')
               li(data-target='#main-carousel', data-slide-to='1')
             
             div(class='carousel-inner', role='listbox')
-              div(class='item active')
-                img(class='img-responsive', src='urf_background.jpg', style='width: 100%;')
-                p(style='position: absolute; top: 80px; left: 120px; color: white; font-size: 70px;')
-                  | It's about
-                p(style='position: absolute; top: 160px; left: 140px; color: white; font-size: 120px;')
-                  | URF'in
-                p(style='position: absolute; top: 300px; left: 180px; color: white; font-size: 70px;')
-                  | time...
-                div(class='carousel-caption') 
-                  | How do URF games help Sentients? 
-                  a Educate yourself.
+              div(class='item active', style='height: 500px; background-color: #000;')
+                div(class='img-responsive')
+                  p(class='text-center', style='font-size:32px; padding:20px 0px; color: white;') Riot still refuses to implement CSBuster.
+                  img(src='csbuster_final.png', class='img-responsive center-block')
+                  h4(class='text-center', style='padding-top:10px; color: white;') How many minions must cry our "Riot please!?"
+                  div(class='carousel-caption') Join the discussion on twitter at 
+                    a(href='https://mobile.twitter.com/search?q=%23sentientlivesmatter?s=tren&p=c') #sentientlivesmatter
               
-              div(class='item')
-                img(class='img-responsive', src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Alistar_0.jpg', style='width: 100%;')
-                p(style='position: absolute; top: 30px; left: 90px; color: white; font-size: 50px;')
+              div(class='item', style='height:500px;')
+                img(class='', src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Alistar_0.jpg', style='width: 100%; max-height: 500px;')
+                p(class='fighting')
                   | Fighting
-                p(style='position: absolute; top: 105px; left: 90px; color: white; font-size: 30px;')
+                p(class='for-the')
                   | for the
-                p(style='position: absolute; top: 145px; left: 90px; color: white; font-size: 80px;')
+                p(class='little')
                   | little
-                p(style='position: absolute; top: 210px; left: 90px; color: white; font-size: 80px;')
+                p(class='guys')
                   | guys
                 div(class='carousel-caption') 
                   | Check out why every Sentient is talking about 

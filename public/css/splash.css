@@ -14,6 +14,22 @@
   .baron-header {
     display: none;
   }
+  .fighting {
+    position: absolute; top: 10px; left: 90px; color: white; font-size: 20px;
+  }
+
+  .for-the {
+    position: absolute; top: 40px; left: 90px; color: white; font-size: 12px;
+  }
+
+  .little {
+    position: absolute; top: 60px; left: 90px; color: white; font-size: 32px;
+  }
+
+  .guys {
+    position: absolute; top: 90px; left: 90px; color: white; font-size: 32px;
+  }
+  
 }
 
 @media(min-width:768px){
@@ -31,6 +47,21 @@
   }
   .baron-header {
     right: -175px;
+  }
+  .fighting {
+    position: absolute; top: 30px; left: 90px; color: white; font-size: 50px;
+  }
+
+  .for-the {
+    position: absolute; top: 105px; left: 90px; color: white;font-size: 30px;
+  }
+
+  .little {
+    position: absolute; top: 145px; left: 90px; color: white;font-size: 80px;
+  }
+
+  .guys {
+    position: absolute; top: 210px; left: 90px; color: white;font-size: 80px;
   }
 }
 
@@ -50,6 +81,21 @@
   .baron-header {
     right: -100px;
   }
+  .fighting {
+    position: absolute; top: 30px; left: 90px; color: white; font-size: 50px;
+  }
+
+  .for-the {
+    position: absolute; top: 105px; left: 90px; color: white;font-size: 30px;
+  }
+
+  .little {
+    position: absolute; top: 145px; left: 90px; color: white;font-size: 80px;
+  }
+
+  .guys {
+    position: absolute; top: 210px; left: 90px; color: white;font-size: 80px;
+  }
 }
 
 @media(min-width:1200px){
@@ -67,6 +113,21 @@
   }
   .baron-header {
     right: 75px;
+  }
+  .fighting {
+    position: absolute; top: 30px; left: 90px; color: white; font-size: 50px;
+  }
+
+  .for-the {
+    position: absolute; top: 105px; left: 90px; color: white;font-size: 30px;
+  }
+
+  .little {
+    position: absolute; top: 145px; left: 90px; color: white;font-size: 80px;
+  }
+
+  .guys {
+    position: absolute; top: 210px; left: 90px; color: white;font-size: 80px;
   }
 }
 
