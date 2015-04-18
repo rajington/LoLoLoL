@@ -13,6 +13,7 @@ html
     - var dragonKills = champData.get('dragonKills')
     - var baronKills = champData.get('baronKills')
     - var score = totalUnitsHealed + inhibitorKills - minionsKilled - neutralMinionsKilled - dragonKills - baronKills
+    - score  = champData.get('identifier') == 17 ? -666 : score  // we all know who this is going to be
 
     div(class='container')
       div(class='col-md-4')
@@ -23,7 +24,6 @@ html
         h4 Sentient Friendliness Score:
         if score < 0
           p(class='text-danger', style='font-size:88px; font-weight: bold;')= score.toFixed(0)
-
         else
           p(class='text-success', style='font-size:88px; font-weight: bold;')= score.toFixed(0)
 
