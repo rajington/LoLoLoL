@@ -2,11 +2,17 @@
   .champ-type-title {
     font-size: 40px;
   }
+  .region-kills {
+    font-size: 32px; 
+  }
 }
 
 @media(min-width:768px){
   .champ-type-title {
     font-size: 50px;
+  }
+  .region-kills {
+    font-size: 40px; 
   }
 }
 
@@ -14,11 +20,17 @@
   .champ-type-title {
     font-size: 60px;
   }
+  .region-kills {
+    font-size: 50px; 
+  }
 }
 
 @media(min-width:1200px){
   .champ-type-title {
     font-size: 80px;
+  }
+  .region-kills {
+    font-size: 64px; 
   }
 }
 
@@ -60,10 +72,22 @@
   margin-bottom: 20px;
 }
 
-.region {
+.region-img {
+  float: left;
   height: 150px;
 }
 
 .clickable {
   cursor:pointer;
+}
+
+.region-txt {
+  color: white;
+  display: inline-block; 
+  vertical-align: middle;
+}
+
+.item-img {
+  float: left;
+  height: 80px;
 }

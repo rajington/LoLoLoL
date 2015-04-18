@@ -102,7 +102,7 @@ app.get('/', function(req, res) {
   	mostItemQuery.notContainedIn('identifier', ignoredItems);
 	  mostItemQuery.descending("minionsKilled");
 	  mostItemQuery.limit(3);
-		return mostItemQuery.find()
+		return mostItemQuery.find();
   })
   .then(function(items){
   	mostKillsItems = items;
@@ -111,13 +111,13 @@ app.get('/', function(req, res) {
   	leastItemQuery.notContainedIn('identifier', ignoredItems);
 	  leastItemQuery.ascending("minionsKilled");
 	  leastItemQuery.limit(3);
-		return leastItemQuery.find()
+		return leastItemQuery.find();
   })
   .then(function(items){
-  	leastKillsItems = items
+  	leastKillsItems = items;
 
-  	var allRegions = new Parse.Query("RegionTier")
-  	return allRegions.find()
+  	var allRegions = new Parse.Query("RegionTier");
+  	return allRegions.find();
   })
   .then(function(regions){
   	var regionCounts = {};
@@ -152,7 +152,7 @@ app.get('/', function(req, res) {
   	mostRegionKills = _.sortBy(averageRegionKills, sortFn).reverse().slice(0, 3);
   	leastRegionKills = _.sortBy(averageRegionKills, sortFn).slice(0, 3);
   })
-  .then(function(items){
+  .then(function(){
 	  	res.render('splash', { 
 	  		mostMinionsKilledChamps : mostKills, 
 	  		leastMinionsKilledChamps: leastKills, 
