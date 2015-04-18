@@ -18,7 +18,7 @@ html
           | ours
         h2(class='text-muted lead text-uppercase') to kill, command, pillage, or abuse in any other way.
     
-    div(style='background-color: #337ab7; padding-bottom: 60px;')
+    div(class='urf-champs', style='padding-bottom: 60px;')
       div(class='container')
         
         div(class='row')
@@ -48,7 +48,7 @@ html
                 p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Sentients killed/game:
                 p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled ? champ.minionsKilled.toFixed(1) : 0
             
-        div(class='row', style='padding: 30px; background-color: #000; margin-bottom: 40px;')
+        div(class='row item-region-background', style='padding: 30px; margin-bottom: 40px;')
           each item in leastMinionsKilledItems
             div(class='col-xs-4 col-md-4')
               img(src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/item/#{item.get("identifier")}.png', class="item-img img-responsive")
@@ -56,7 +56,7 @@ html
                 span(class="region-kills")= item.get('minionsKilled').toFixed(1) 
                 p sentients/game
         
-        div(class='row', style='background-color: #000;')
+        div(class='row item-region-background')
           each region in leastRegionKills
             each val, key in region
               div(class='col-xs-4 col-md-4')
@@ -65,7 +65,7 @@ html
                   span(class="region-kills")= val.toFixed(1) 
                   p sentients/game
 
-    div(style='background-color: #a94442; padding-bottom: 60px;')
+    div(style='background-color: #000; padding-bottom: 60px;')
       div(class='container')  
         div(class='row', style='margin-top: 30px;')
           p(class='top-3-header text-center champ-type-title') URF's Sentient Killers

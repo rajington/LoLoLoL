@@ -91,3 +91,19 @@
   float: left;
   height: 80px;
 }
+
+.urf-champs {
+  background: #000;
+  background-image: url('../urf_background.jpg');
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  -webkit-background-size: cover; /* For WebKit*/
+  -moz-background-size: cover;    /* Mozilla*/
+  -o-background-size: cover;      /* Opera*/
+  background-size: cover;         /* Generic*/
+}
+
+.item-region-background {
+  background-color: rgba(0,0,0,.8);
+}
