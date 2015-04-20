@@ -71,7 +71,7 @@ html
             p(style='margin-left: 40px;')
               div(class='row')  
                 img(class='col-md-2 col-md-offset-1', src='http://ddragon.leagueoflegends.com/cdn/5.7.2/img/passive/#{scoreComments.passive.id}')
-                span(class='col-md-7', style='font-size: 16px;')= scoreComments.passive.comment
+                span(class='col-md-7', style='font-size: 16px;') !{scoreComments.passive.comment}
                 span(class='col-md-2', style='font-size: 24px;')= scoreComments.passive.score
 
 
@@ -88,5 +88,5 @@ html
           p Other:
             p(style='margin-left: 40px;')
               div(class='row')  
-                span(class='col-md-9 col-md-offset-1', style='font-size: 16px;')= scoreComments.other.comment
+                span(class='col-md-9 col-md-offset-1', style='font-size: 16px;') !{scoreComments.other.comment}
                 span(class='col-md-2', style='font-size: 24px;')= scoreComments.other.score
