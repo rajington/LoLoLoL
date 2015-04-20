@@ -1247,8 +1247,8 @@ var scoreComments = {
   },
   "Thresh": {
     "passive": {
-      "comment": "",
-      "score": 0,
+      "comment": "Honestly, we didn't expect Thresh to be here. He doesn't have that nice-guy feel to him, and the chains scream 50 shades. But you know what? He cares. Instead of ignoring the dead Sentient souls around him, he does his part to give them a home after death. If that's not caring, we don't know what is.",
+      "score": 10,
       "id": "Thresh_Passive.png"
     },
     "other": {
@@ -1397,8 +1397,8 @@ var scoreComments = {
       "id": "ZiggsPassiveReady.png"
     },
     "other": {
-      "comment": "",
-      "score": 0
+      "comment": "\"Killing minions will be a blast!\"",
+      "score": -1
     },
     "spells": {
       "ZiggsW": {
@@ -1410,8 +1410,8 @@ var scoreComments = {
         "score": 0
       },
       "ZiggsR": {
-        "comment": "",
-        "score": 0
+        "comment": "<a href='https://www.youtube.com/watch?v=hoidUauXTO4'>A normal day for Ziggs.</a>",
+        "score": -134
       },
       "ZiggsQ": {
         "comment": "",
@@ -1827,8 +1827,8 @@ var scoreComments = {
   },
   "Bard": {
     "passive": {
-      "comment": "",
-      "score": 0,
+      "comment": "Bard is a bit mysterious. He only shows up when the world is out of balance, so he's not going to sign up for a PETS membership any time soon*. Yet he does befriend the Meeps, so he can't be that bad of a champ. His numbers certainly speak to that. * Sign up now for a PETS membership today for an incredibly low price of 10g. Hurry, this deal won't last!",
+      "score": 5,
       "id": "Bard_Passive.png"
     },
     "other": {
@@ -2805,13 +2805,13 @@ var scoreComments = {
       "id": "KogMaw_IcathianSurprise.png"
     },
     "other": {
-      "comment": "",
-      "score": 0
+      "comment": "\"Getting Hungry...\" \"Want meat!\" Not only does he kill Sentients... Kog'Maw eats them as well. There may not be a more disgusting and morally-lacking creature in the rift.",
+      "score": -50
     },
     "spells": {
       "KogMawQ": {
-        "comment": "",
-        "score": 0
+        "comment": "Spitting on Sentients before devouring them!? Even Cho'Gath gets squeamish after seeing that take place.",
+        "score": -13
       },
       "KogMawLivingArtillery": {
         "comment": "",
@@ -2822,8 +2822,8 @@ var scoreComments = {
         "score": 0
       },
       "KogMawVoidOoze": {
-        "comment": "",
-        "score": 0
+        "comment": "Even if hunting Sentients was legal, there should be rules to how you can do so... ",
+        "score": -7
       }
     }
   },
@@ -3617,8 +3617,8 @@ var scoreComments = {
       "id": "Ezreal_RisingSpellForce.png"
     },
     "other": {
-      "comment": "",
-      "score": 0
+      "comment": "Don't let the boyish good looks fool you. Patrick Bateman over here is at the top of our list of minion-killing scum. The only thing that belongs in a museum are historical records of his Sentient war crimes.",
+      "score": -200
     },
     "spells": {
       "EzrealArcaneShift": {
@@ -3626,12 +3626,12 @@ var scoreComments = {
         "score": 0
       },
       "EzrealEssenceFlux": {
-        "comment": "",
-        "score": 0
+        "comment": "Despite his best efforts he couldn't get this spell to hurt Sentients.",
+        "score": 2
       },
       "EzrealTrueshotBarrage": {
-        "comment": "",
-        "score": 0
+        "comment": "Known to \"clear waves\" of Sentients, this spell is one of Ezreal's worst.",
+        "score": -46
       },
       "EzrealMysticShot": {
         "comment": "",
