@@ -35,7 +35,7 @@ var scoreComments = {
       "id": "Armsmaster_MasterOfArms.png"
     },
     "other": {
-      "comment": "Even a lamp post hits hard when you're a minion!",
+      "comment": "Even a lamp post hits hard when you're a Sentient!",
       "score": -20
     },
     "spells": {
@@ -288,8 +288,8 @@ var scoreComments = {
         "score": 0
       },
       "BraumE": {
-        "comment": "",
-        "score": 0
+        "comment": "Braum has raised his shield many times in defense of Sentients. Will you?",
+        "score": 25
       },
       "BraumRWrapper": {
         "comment": "",
@@ -1397,7 +1397,7 @@ var scoreComments = {
       "id": "ZiggsPassiveReady.png"
     },
     "other": {
-      "comment": "\"Killing minions will be a blast!\"",
+      "comment": "\"Killing Sentients will be a blast!\"",
       "score": -1
     },
     "spells": {
@@ -1827,7 +1827,7 @@ var scoreComments = {
   },
   "Bard": {
     "passive": {
-      "comment": "Bard is a bit mysterious. He only shows up when the world is out of balance, so he's not going to sign up for a PETS membership any time soon*. Yet he does befriend the Meeps, so he can't be that bad of a champ. His numbers certainly speak to that. * Sign up now for a PETS membership today for an incredibly low price of 10g. Hurry, this deal won't last!",
+      "comment": "Bard is a bit mysterious. He only shows up when the world is out of balance, so he's not going to sign up for a PETS membership any time soon*. Yet he does befriend the Meeps, so he can't be that bad of a champ. His numbers certainly speak to that. </br></br>* Sign up now for a PETS membership today for an incredibly low price of 10g. Hurry, this deal won't last!",
       "score": 5,
       "id": "Bard_Passive.png"
     },
@@ -3617,7 +3617,7 @@ var scoreComments = {
       "id": "Ezreal_RisingSpellForce.png"
     },
     "other": {
-      "comment": "Don't let the boyish good looks fool you. Patrick Bateman over here is at the top of our list of minion-killing scum. The only thing that belongs in a museum are historical records of his Sentient war crimes.",
+      "comment": "Don't let the boyish good looks fool you. Patrick Bateman over here is at the top of our list of Sentient-killing scum. The only thing that belongs in a museum are historical records of his Sentient war crimes.",
       "score": -200
     },
     "spells": {
