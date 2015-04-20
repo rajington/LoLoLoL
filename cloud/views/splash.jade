@@ -41,7 +41,7 @@ html
 
               div(class='#{column}', style='position:relative; margin-bottom: 50px;')
                 a(href='/champion/#{champ.identifier}')
-                  img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.key}_0.jpg', class='clickable', style='#{style}')
+                  img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.key}_0.jpg', title='#{champ.key}', class='clickable', style='#{style}')
                 //- p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total Sentients killed:
                 //- p(class='cs-stat-img-text cs-stat-img-value', style='top:380px;')= champ.totalMinionKills
                 p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Sentients killed/game:
@@ -83,7 +83,7 @@ html
           each champ in mostMinionsKilledChamps
             div(class='col-md-4', style='position:relative; margin-bottom: 50px;')
               a(href='/champion/#{champ.identifier}')
-                img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.key}_0.jpg', class='clickable')
+                img(src='http://ddragon.leagueoflegends.com/cdn/img/champion/loading/#{champ.key}_0.jpg', title='#{champ.key}', class='clickable')
               p(class='cs-stat-img-text cs-stat-img-heading', style='top:450px;') Sentients killed/game:
               p(class='cs-stat-img-text cs-stat-img-value', style='top:480px;')= champ.minionsKilled ? champ.minionsKilled.toFixed(1) : 0 
               //- p(class='cs-stat-img-text cs-stat-img-heading', style='top:350px;') Total Sentients killed:
